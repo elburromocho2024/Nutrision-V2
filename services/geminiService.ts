@@ -81,116 +81,93 @@ const RECIPE_DICTIONARY: Record<string, any> = {
 };
 
 const INGREDIENT_DICTIONARY: Record<string, any> = {
-  "Pain complet": { [Language.DE]: "Vollkornbrot", [Language.IT]: "Pane integrale", [Language.EN]: "Whole wheat bread" },
-  "Beurre": { [Language.DE]: "Butter", [Language.IT]: "Burro", [Language.EN]: "Butter" },
-  "Confiture": { [Language.DE]: "Marmelade", [Language.IT]: "Marmellata", [Language.EN]: "Jam" },
-  "Pomme": { [Language.DE]: "Apfel", [Language.IT]: "Mela", [Language.EN]: "Apple" },
-  "Jus d'orange": { [Language.DE]: "Orangensaft", [Language.IT]: "Succo d'arancia", [Language.EN]: "Orange juice" },
-  "Pain de mie": { [Language.DE]: "Toastbrot", [Language.IT]: "Pane in cassetta", [Language.EN]: "Toast bread" },
-  "Pâte à tartiner": { [Language.DE]: "Brotaufstrich", [Language.IT]: "Crema spalmabile", [Language.EN]: "Chocolate spread" },
-  "Banane": { [Language.DE]: "Banane", [Language.IT]: "Banana", [Language.EN]: "Banana" },
-  "Jus de pomme": { [Language.DE]: "Apfelsaft", [Language.IT]: "Succo di mela", [Language.EN]: "Apple juice" },
-  "Oeuf": { [Language.DE]: "Ei", [Language.IT]: "Uovo", [Language.EN]: "Egg" },
-  "Raisin": { [Language.DE]: "Trauben", [Language.IT]: "Uva", [Language.EN]: "Grapes" },
-  "Jus multivitaminé": { [Language.DE]: "Multivitaminsaft", [Language.IT]: "Succo multivitaminico", [Language.EN]: "Multivitamin juice" },
-  "Pain campagne": { [Language.DE]: "Bauernbrot", [Language.IT]: "Pane casereccio", [Language.EN]: "Country bread" },
-  "Fromage frais": { [Language.DE]: "Frischkäse", [Language.IT]: "Formaggio fresco", [Language.EN]: "Fresh cheese" },
-  "Poire": { [Language.DE]: "Birne", [Language.IT]: "Pera", [Language.EN]: "Pear" },
-  "Jus de raisin": { [Language.DE]: "Traubensaft", [Language.IT]: "Succo d'uva", [Language.EN]: "Grape juice" },
-  "Pain grillé": { [Language.DE]: "Zwieback", [Language.IT]: "Fette biscottate", [Language.EN]: "Toasted bread" },
-  "Miel": { [Language.DE]: "Honig", [Language.IT]: "Miele", [Language.EN]: "Honey" },
-  "Clémentines": { [Language.DE]: "Klementinen", [Language.IT]: "Clementine", [Language.EN]: "Clementines" },
-  "Kiwi": { [Language.DE]: "Kiwi", [Language.IT]: "Kiwi", [Language.EN]: "Kiwi" },
-  "Jus d'ananas": { [Language.DE]: "Ananassaft", [Language.IT]: "Succo d'ananas", [Language.EN]: "Pineapple juice" },
-  "Brioche": { [Language.DE]: "Brioche", [Language.IT]: "Brioche", [Language.EN]: "Brioche" },
-  "Lait": { [Language.DE]: "Milch", [Language.IT]: "Latte", [Language.EN]: "Milk" },
-  "Cacao": { [Language.DE]: "Kakao", [Language.IT]: "Cacao", [Language.EN]: "Cocoa" },
-  "Salade de fruits": { [Language.DE]: "Obstsalat", [Language.IT]: "Macedonia", [Language.EN]: "Fruit salad" },
-  "Cuisse poulet": { [Language.DE]: "Hähnchenschenkel", [Language.IT]: "Coscia di pollo", [Language.EN]: "Chicken leg" },
-  "Haricots": { [Language.DE]: "Bohnen", [Language.IT]: "Fagiolini", [Language.EN]: "Beans" },
-  "Pâtes": { [Language.DE]: "Nudeln", [Language.IT]: "Pasta", [Language.EN]: "Pasta" },
-  "Lardons": { [Language.DE]: "Speckwürfel", [Language.IT]: "Pancetta", [Language.EN]: "Bacon bits" },
-  "Légumes": { [Language.DE]: "Gemüse", [Language.IT]: "Verdure", [Language.EN]: "Vegetables" },
-  "Lait coco": { [Language.DE]: "Kokosmilch", [Language.IT]: "Latte di cocco", [Language.EN]: "Coconut milk" },
-  "Champignons": { [Language.DE]: "Pilze", [Language.IT]: "Funghi", [Language.EN]: "Mushrooms" },
-  "Lentilles": { [Language.DE]: "Linsen", [Language.IT]: "Lenticchie", [Language.EN]: "Lentils" },
-  "Tomates": { [Language.DE]: "Tomaten", [Language.IT]: "Pomodori", [Language.EN]: "Tomatoes" },
-  "Tofu": { [Language.DE]: "Tofu", [Language.IT]: "Tofu", [Language.EN]: "Tofu" },
-  "Brocolis": { [Language.DE]: "Brokkoli", [Language.IT]: "Broccoli", [Language.EN]: "Broccoli" },
-  "Saumon": { [Language.DE]: "Lachs", [Language.IT]: "Salmone", [Language.EN]: "Salmon" },
-  "Riz": { [Language.DE]: "Reis", [Language.IT]: "Riso", [Language.EN]: "Rice" },
-  "Boeuf haché": { [Language.DE]: "Rinderhackfleisch", [Language.IT]: "Manzo macinato", [Language.EN]: "Ground beef" },
-  "Pommes terre": { [Language.DE]: "Kartoffeln", [Language.IT]: "Patate", [Language.EN]: "Potatoes" },
-  "Oeufs": { [Language.DE]: "Eier", [Language.IT]: "Uova", [Language.EN]: "Eggs" },
-  "Feta": { [Language.DE]: "Feta", [Language.IT]: "Feta", [Language.EN]: "Feta" },
-  "Haricots r.": { [Language.DE]: "Rote Bohnen", [Language.IT]: "Fagioli rossi", [Language.EN]: "Red beans" },
-  "Maïs": { [Language.DE]: "Mais", [Language.IT]: "Mais", [Language.EN]: "Corn" },
-  "Steak soja": { [Language.DE]: "Soja-Steak", [Language.IT]: "Bistecca di soia", [Language.EN]: "Soy steak" },
-  "Quinoa": { [Language.DE]: "Quinoa", [Language.IT]: "Quinoa", [Language.EN]: "Quinoa" },
-  "Steak": { [Language.DE]: "Steak", [Language.IT]: "Bistecca", [Language.EN]: "Steak" },
-  "Frites": { [Language.DE]: "Pommes", [Language.IT]: "Patatine", [Language.EN]: "Fries" },
-  "Salade": { [Language.DE]: "Salat", [Language.IT]: "Insalata", [Language.EN]: "Salad" },
-  "Poulet": { [Language.DE]: "Hähnchen", [Language.IT]: "Pollo", [Language.EN]: "Chicken" },
-  "Salade romaine": { [Language.DE]: "Römersalat", [Language.IT]: "Lattuga romana", [Language.EN]: "Romaine lettuce" },
-  "Croûtons": { [Language.DE]: "Croutons", [Language.IT]: "Crostini", [Language.EN]: "Croutons" },
-  "Parmesan": { [Language.DE]: "Parmesan", [Language.IT]: "Parmigiano", [Language.EN]: "Parmesan" },
-  "Steak végé": { [Language.DE]: "Veggie-Steak", [Language.IT]: "Bistecca vegetale", [Language.EN]: "Veggie steak" },
-  "Pain burger": { [Language.DE]: "Burgerbrötchen", [Language.IT]: "Pane per burger", [Language.EN]: "Burger bun" },
-  "Chèvre chaud": { [Language.DE]: "Warmer Ziegenkäse", [Language.IT]: "Caprino caldo", [Language.EN]: "Warm goat cheese" },
-  "Sauce tomate": { [Language.DE]: "Tomatensauce", [Language.IT]: "Salsa di pomodoro", [Language.EN]: "Tomato sauce" },
-  "Jambon": { [Language.DE]: "Schinken", [Language.IT]: "Prosciutto", [Language.EN]: "Ham" },
-  "Pesto": { [Language.DE]: "Pesto", [Language.IT]: "Pesto", [Language.EN]: "Pesto" },
-  "Mozzarella": { [Language.DE]: "Mozzarella", [Language.IT]: "Mozzarella", [Language.EN]: "Mozzarella" },
-  "Protéines soja": { [Language.DE]: "Sojaprotein", [Language.IT]: "Proteine di soia", [Language.EN]: "Soy protein" },
-  "Houmous": { [Language.DE]: "Hummus", [Language.IT]: "Hummus", [Language.EN]: "Hummus" },
-  "Filets perche": { [Language.DE]: "Eglifilets", [Language.IT]: "Filetti di pesce persico", [Language.EN]: "Perch fillets" },
-  "Citron": { [Language.DE]: "Zitrone", [Language.IT]: "Limone", [Language.EN]: "Lemon" },
-  "Pâte pizza": { [Language.DE]: "Pizzateig", [Language.IT]: "Pasta per pizza", [Language.EN]: "Pizza dough" },
-  "Crème": { [Language.DE]: "Sahne", [Language.IT]: "Panna", [Language.EN]: "Cream" },
-  "Ail": { [Language.DE]: "Knoblauch", [Language.IT]: "Aglio", [Language.EN]: "Garlic" },
-  "Mélange fromages": { [Language.DE]: "Käsemischung", [Language.IT]: "Misto formaggi", [Language.EN]: "Cheese mix" },
-  "Origan": { [Language.DE]: "Oregano", [Language.IT]: "Origano", [Language.EN]: "Oregano" },
-  "Légumes grillés": { [Language.DE]: "Grillgemüse", [Language.IT]: "Verdure grigliate", [Language.EN]: "Grilled vegetables" },
-  "Coulis tomate": { [Language.DE]: "Tomaten-Coulis", [Language.IT]: "Passata di pomodoro", [Language.EN]: "Tomato coulis" },
-  "Cordon bleu": { [Language.DE]: "Cordon Bleu", [Language.IT]: "Cordon Bleu", [Language.EN]: "Cordon Bleu" },
-  "Petits pois": { [Language.DE]: "Erbsen", [Language.IT]: "Piselli", [Language.EN]: "Peas" },
-  "Carottes": { [Language.DE]: "Karotten", [Language.IT]: "Carote", [Language.EN]: "Carrots" },
-  "Tortillas": { [Language.DE]: "Tortillas", [Language.IT]: "Tortillas", [Language.EN]: "Tortillas" },
-  "Poivrons": { [Language.DE]: "Paprika", [Language.IT]: "Peperoni", [Language.EN]: "Peppers" },
-  "Épices fajitas": { [Language.DE]: "Fajita-Gewürze", [Language.IT]: "Spezie per fajitas", [Language.EN]: "Fajita spices" },
-  "Nuggets soja": { [Language.DE]: "Soja-Nuggets", [Language.IT]: "Nuggets di soia", [Language.EN]: "Soy nuggets" },
-  "Haricots rouges": { [Language.DE]: "Rote Bohnen", [Language.IT]: "Fagioli rossi", [Language.EN]: "Red beans" },
-  "Falafels": { [Language.DE]: "Falafel", [Language.IT]: "Falafel", [Language.EN]: "Falafel" },
-  "Sauce tahini": { [Language.DE]: "Tahini-Sauce", [Language.IT]: "Salsa tahini", [Language.EN]: "Tahini sauce" },
-  "Haricots noirs": { [Language.DE]: "Schwarze Bohnen", [Language.IT]: "Fagioli neri", [Language.EN]: "Black beans" },
-  "Rôti porc": { [Language.DE]: "Schweinebraten", [Language.IT]: "Arrosto di maiale", [Language.EN]: "Roasted pork" },
-  "Légumes soupe": { [Language.DE]: "Suppengemüse", [Language.IT]: "Verdure per zuppa", [Language.EN]: "Soup vegetables" },
-  "Feuilles lasagne": { [Language.DE]: "Lasagneblätter", [Language.IT]: "Fogli di lasagna", [Language.EN]: "Lasagna sheets" },
-  "Epinards": { [Language.DE]: "Spinat", [Language.IT]: "Spinaci", [Language.EN]: "Spinach" },
-  "Chèvre": { [Language.DE]: "Ziegenkäse", [Language.IT]: "Caprino", [Language.EN]: "Goat cheese" },
-  "Bechamel": { [Language.DE]: "Bechamel", [Language.IT]: "Besciamella", [Language.EN]: "Bechamel" },
-  "Courge": { [Language.DE]: "Kürbis", [Language.IT]: "Zucca", [Language.EN]: "Squash" },
-  "Poisson": { [Language.DE]: "Fisch", [Language.IT]: "Pesce", [Language.EN]: "Fish" },
-  "Viande": { [Language.DE]: "Fleisch", [Language.IT]: "Carne", [Language.EN]: "Meat" },
-  "Fruits": { [Language.DE]: "Früchte", [Language.IT]: "Frutta", [Language.EN]: "Fruits" },
+  "Pain complet": { [Language.FR]: "Pain complet (tranché)", [Language.DE]: "Vollkornbrot (geschnitten)", [Language.IT]: "Pane integrale (a fette)", [Language.EN]: "Whole wheat bread (sliced)" },
+  "Beurre": { [Language.FR]: "Beurre de cuisine (Suisse)", [Language.DE]: "Kochbutter (Schweiz)", [Language.IT]: "Burro da cucina (Svizzera)", [Language.EN]: "Cooking butter (Swiss)" },
+  "Confiture": { [Language.FR]: "Confiture de fraises (Extra)", [Language.DE]: "Erdbeerkonfitüre (Extra)", [Language.IT]: "Confettura di fragole (Extra)", [Language.EN]: "Strawberry jam (Extra)" },
+  "Pomme": { [Language.FR]: "Pommes (Gala, Suisse)", [Language.DE]: "Äpfel (Gala, Schweiz)", [Language.IT]: "Mele (Gala, Svizzera)", [Language.EN]: "Apples (Gala, Swiss)" },
+  "Jus d'orange": { [Language.FR]: "Jus d'orange (100% pur jus)", [Language.DE]: "Orangensaft (100% Fruchtgehalt)", [Language.IT]: "Succo d'arancia (100% puro succo)", [Language.EN]: "Orange juice (100% pure juice)" },
+  "Pain de mie": { [Language.FR]: "Pain de mie (complet, sans croûte)", [Language.DE]: "Toastbrot (Vollkorn, ohne Rinde)", [Language.IT]: "Pane in cassetta (integrale, senza crosta)", [Language.EN]: "Toast bread (whole wheat, crustless)" },
+  "Pâte à tartiner": { [Language.FR]: "Pâte à tartiner (Choco-Noisette)", [Language.DE]: "Schoko-Haselnuss-Aufstrich", [Language.IT]: "Crema spalmabile alle nocciole", [Language.EN]: "Hazelnut spread" },
+  "Banane": { [Language.FR]: "Bananes (mûres, Bio)", [Language.DE]: "Bananen (reif, Bio)", [Language.IT]: "Banane (mature, Bio)", [Language.EN]: "Bananas (ripe, Organic)" },
+  "Jus de pomme": { [Language.FR]: "Jus de pomme (naturel, Suisse)", [Language.DE]: "Apfelsaft (naturtrüb, Schweiz)", [Language.IT]: "Succo di mela (naturale, Svizzera)", [Language.EN]: "Apple juice (natural, Swiss)" },
+  "Oeuf": { [Language.FR]: "Oeufs (frais, plein air)", [Language.DE]: "Eier (frisch, Freiland)", [Language.IT]: "Uova (fresche, allevate all'aperto)", [Language.EN]: "Eggs (fresh, free-range)" },
+  "Raisin": { [Language.FR]: "Raisins (blancs, sans pépins)", [Language.DE]: "Trauben (weiss, kernlos)", [Language.IT]: "Uva (bianca, senza semi)", [Language.EN]: "Grapes (white, seedless)" },
+  "Jus multivitaminé": { [Language.FR]: "Jus multivitaminé (12 fruits)", [Language.DE]: "Multivitaminsaft (12 Früchte)", [Language.IT]: "Succo multivitaminico (12 frutti)", [Language.EN]: "Multivitamin juice (12 fruits)" },
+  "Pain campagne": { [Language.FR]: "Pain de campagne (au levain)", [Language.DE]: "Bauernbrot (Sauerteig)", [Language.IT]: "Pane casereccio (lievito madre)", [Language.EN]: "Country bread (sourdough)" },
+  "Fromage frais": { [Language.FR]: "Fromage frais (type Philadelphia)", [Language.DE]: "Frischkäse (Philadelphia-Art)", [Language.IT]: "Formaggio fresco (tipo Philadelphia)", [Language.EN]: "Fresh cheese (Philadelphia style)" },
+  "Poire": { [Language.FR]: "Poires (Conférence, Suisse)", [Language.DE]: "Birnen (Conference, Schweiz)", [Language.IT]: "Pere (Conference, Svizzera)", [Language.EN]: "Pears (Conference, Swiss)" },
+  "Jus de raisin": { [Language.FR]: "Jus de raisin (rouge, pur jus)", [Language.DE]: "Traubensaft (rot, pur)", [Language.IT]: "Succo d'uva (rosso, puro)", [Language.EN]: "Grape juice (red, pure)" },
+  "Pain grillé": { [Language.FR]: "Biscottes (blé complet)", [Language.DE]: "Vollkorn-Zwieback", [Language.IT]: "Fette biscottate integrali", [Language.EN]: "Whole wheat rusks" },
+  "Miel": { [Language.FR]: "Miel de fleurs (Suisse)", [Language.DE]: "Blütenhonig (Schweiz)", [Language.IT]: "Miele di fiori (Svizzera)", [Language.EN]: "Flower honey (Swiss)" },
+  "Clémentines": { [Language.FR]: "Clémentines (sans pépins)", [Language.DE]: "Klementinen (kernlos)", [Language.IT]: "Clementine (senza semi)", [Language.EN]: "Clementines (seedless)" },
+  "Kiwi": { [Language.FR]: "Kiwis (verts, Bio)", [Language.DE]: "Kiwis (grün, Bio)", [Language.IT]: "Kiwi (verdi, Bio)", [Language.EN]: "Kiwis (green, Organic)" },
+  "Jus d'ananas": { [Language.FR]: "Jus d'ananas (sans sucre ajouté)", [Language.DE]: "Ananassaft (ohne Zuckerzusatz)", [Language.IT]: "Succo d'ananas (senza zuccheri aggiunti)", [Language.EN]: "Pineapple juice (no added sugar)" },
+  "Brioche": { [Language.FR]: "Brioche tressée (au beurre)", [Language.DE]: "Butterzopf", [Language.IT]: "Treccia al burro", [Language.EN]: "Butter brioche" },
+  "Lait": { [Language.FR]: "Lait entier (Suisse)", [Language.DE]: "Vollmilch (Schweiz)", [Language.IT]: "Latte intero (Svizzera)", [Language.EN]: "Whole milk (Swiss)" },
+  "Cacao": { [Language.FR]: "Cacao en poudre (Nesquik)", [Language.DE]: "Kakaopulver (Nesquik)", [Language.IT]: "Cacao in polvere (Nesquik)", [Language.EN]: "Cocoa powder (Nesquik)" },
+  "Salade de fruits": { [Language.FR]: "Salade de fruits (frais maison)", [Language.DE]: "Frischer Obstsalat", [Language.IT]: "Macedonia di frutta fresca", [Language.EN]: "Fresh fruit salad" },
+  "Cuisse poulet": { [Language.FR]: "Cuisses de poulet (fermier, Suisse)", [Language.DE]: "Hähnchenschenkel (Freiland, Schweiz)", [Language.IT]: "Cosce di pollo (allevato all'aperto, Svizzera)", [Language.EN]: "Chicken legs (free-range, Swiss)" },
+  "Haricots": { [Language.FR]: "Haricots verts (extra-fins)", [Language.DE]: "Grüne Bohnen (extra fein)", [Language.IT]: "Fagiolini (extra fini)", [Language.EN]: "Green beans (extra fine)" },
+  "Pâtes": { [Language.FR]: "Pennes Rigate (Barilla No 73)", [Language.DE]: "Penne Rigate (Barilla No 73)", [Language.IT]: "Penne Rigate (Barilla No 73)", [Language.EN]: "Penne Rigate (Barilla No 73)" },
+  "Lardons": { [Language.FR]: "Lardons fumés (qualité supérieure)", [Language.DE]: "Geräucherte Speckwürfel (Premium)", [Language.IT]: "Pancetta affumicata (Premium)", [Language.EN]: "Smoked bacon bits (Premium)" },
+  "Boeuf haché": { [Language.FR]: "Pur Boeuf haché (15% MG)", [Language.DE]: "Rinderhackfleisch (15% Fett)", [Language.IT]: "Manzo macinato (15% grassi)", [Language.EN]: "Ground beef (15% fat)" },
+  "Pommes terre": { [Language.FR]: "Pommes de terre (Charlotte, Suisse)", [Language.DE]: "Kartoffeln (Charlotte, Schweiz)", [Language.IT]: "Patate (Charlotte, Svizzera)", [Language.EN]: "Potatoes (Charlotte, Swiss)" },
+  "Saumon": { [Language.FR]: "Filets de Saumon (frais, avec peau)", [Language.DE]: "Lachsfilets (frisch, mit Haut)", [Language.IT]: "Filetti di salmone (freschi, con pelle)", [Language.EN]: "Salmon fillets (fresh, with skin)" },
+  "Riz": { [Language.FR]: "Riz Long Grain (Parfumé)", [Language.DE]: "Langkornreis (Parfümiert)", [Language.IT]: "Riso a chicco lungo (Profumato)", [Language.EN]: "Long grain rice (Scented)" },
+  "Jambon": { [Language.FR]: "Jambon cuit (choix supérieur)", [Language.DE]: "Kochschinken (Premium)", [Language.IT]: "Prosciutto cotto (scelta superiore)", [Language.EN]: "Cooked ham (premium choice)" },
+  "Pâte pizza": { [Language.FR]: "Pâte à pizza (ronde, prête à l'emploi)", [Language.DE]: "Pizzateig (rund, backfertig)", [Language.IT]: "Pasta per pizza (rotonda, pronta all'uso)", [Language.EN]: "Pizza dough (round, ready to use)" },
+  "Mozzarella": { [Language.FR]: "Mozzarella di Bufala (DOP)", [Language.DE]: "Büffelmozzarella (DOP)", [Language.IT]: "Mozzarella di Bufala (DOP)", [Language.EN]: "Buffalo Mozzarella (DOP)" },
+  "Champignons": { [Language.FR]: "Champignons de Paris (blancs, frais)", [Language.DE]: "Champignons (weiss, frisch)", [Language.IT]: "Champignons (bianchi, freschi)", [Language.EN]: "Mushrooms (white, fresh)" },
+  "Lait coco": { [Language.FR]: "Lait de coco (onctueux, 18% MG)", [Language.DE]: "Kokosmilch (cremig, 18% Fett)", [Language.IT]: "Latte di cocco (cremoso, 18% grassi)", [Language.EN]: "Coconut milk (creamy, 18% fat)" },
+  "Tofu": { [Language.FR]: "Tofu ferme (nature, Bio)", [Language.DE]: "Tofu (fest, Natur, Bio)", [Language.IT]: "Tofu (compatto, naturale, Bio)", [Language.EN]: "Tofu (firm, plain, Organic)" },
+  "Brocolis": { [Language.FR]: "Brocolis (en bouquets frais)", [Language.DE]: "Brokkoli (frisch, Röschen)", [Language.IT]: "Broccoli (in cimette fresche)", [Language.EN]: "Broccoli (fresh florets)" },
+  "Frites": { [Language.FR]: "Frites (coupe large, spécial four)", [Language.DE]: "Pommes (breit, ofenfertig)", [Language.IT]: "Patatine (taglio largo, per forno)", [Language.EN]: "Fries (thick cut, oven ready)" },
+  "Sauce tomate": { [Language.FR]: "Sauce Tomate (Basilic & Origan)", [Language.DE]: "Tomatensauce (Basilikum & Oregano)", [Language.IT]: "Salsa di pomodoro (Basilico e Origano)", [Language.EN]: "Tomato sauce (Basil & Oregano)" },
+  "Coulis tomate": { [Language.FR]: "Coulis de Tomate (Nature)", [Language.DE]: "Tomaten-Coulis (Natur)", [Language.IT]: "Passata di pomodoro (Naturale)", [Language.EN]: "Tomato coulis (Plain)" },
+  "Steak": { [Language.FR]: "Entrecôte de Boeuf (Suisse)", [Language.DE]: "Rinds-Entrecôte (Schweiz)", [Language.IT]: "Entrecôte di manzo (Svizzera)", [Language.EN]: "Beef Entrecôte (Swiss)" },
+  "Salade": { [Language.FR]: "Mélange de jeunes pousses", [Language.DE]: "Junger Blattsalat-Mix", [Language.IT]: "Misticanza di novelline", [Language.EN]: "Mixed baby greens" },
+  "Origan": { [Language.FR]: "Origan séché (Bio)", [Language.DE]: "Oregano (getrocknet, Bio)", [Language.IT]: "Origano (essiccato, Bio)", [Language.EN]: "Oregano (dried, Organic)" },
+  "Légumes grillés": { [Language.FR]: "Légumes grillés (Surgelés)", [Language.DE]: "Grillgemüse (Tiefgekühlt)", [Language.IT]: "Verdure grigliate (Surgelate)", [Language.EN]: "Grilled vegetables (Frozen)" },
+  "Cordon bleu": { [Language.FR]: "Cordon Bleu (Porc, Suisse)", [Language.DE]: "Cordon Bleu (Schwein, Schweiz)", [Language.IT]: "Cordon Bleu (Maiale, Svizzera)", [Language.EN]: "Cordon Bleu (Pork, Swiss)" },
+  "Petits pois": { [Language.FR]: "Petits pois (fins, conserve)", [Language.DE]: "Erbsen (fein, Dose)", [Language.IT]: "Piselli (fini, lattina)", [Language.EN]: "Peas (fine, canned)" },
+  "Carottes": { [Language.FR]: "Carottes (Bio, Suisse)", [Language.DE]: "Karotten (Bio, Schweiz)", [Language.IT]: "Carote (Bio, Svizzera)", [Language.EN]: "Carrots (Organic, Swiss)" },
+  "Tortillas": { [Language.FR]: "Tortillas de blé (souples)", [Language.DE]: "Weizentortillas (weich)", [Language.IT]: "Tortillas di grano (morbide)", [Language.EN]: "Wheat tortillas (soft)" },
+  "Poivrons": { [Language.FR]: "Poivrons (Mix de couleurs)", [Language.DE]: "Paprika (Farbmix)", [Language.IT]: "Peperoni (misti)", [Language.EN]: "Peppers (mixed colors)" },
+  "Épices fajitas": { [Language.FR]: "Épices Fajitas (Sachet)", [Language.DE]: "Fajita-Gewürze (Beutel)", [Language.IT]: "Spezie per fajitas (Bustina)", [Language.EN]: "Fajita spices (Sachet)" },
+  "Nuggets soja": { [Language.FR]: "Nuggets de soja (Bio)", [Language.DE]: "Soja-Nuggets (Bio)", [Language.IT]: "Nuggets di soia (Bio)", [Language.EN]: "Soy nuggets (Organic)" },
+  "Haricots rouges": { [Language.FR]: "Haricots rouges (Bio, conserve)", [Language.DE]: "Rote Bohnen (Bio, Dose)", [Language.IT]: "Fagioli rossi (Bio, lattina)", [Language.EN]: "Red beans (Organic, canned)" },
+  "Falafels": { [Language.FR]: "Falafels (Pois chiches, frais)", [Language.DE]: "Falafel (frisch)", [Language.IT]: "Falafel (freschi)", [Language.EN]: "Falafels (fresh)" },
+  "Sauce tahini": { [Language.FR]: "Sauce Tahini (Sésame)", [Language.DE]: "Tahini-Sauce (Sesam)", [Language.IT]: "Salsa tahini (Sesamo)", [Language.EN]: "Tahini sauce (Sesame)" },
+  "Haricots noirs": { [Language.FR]: "Haricots noirs (conserve)", [Language.DE]: "Schwarze Bohnen (Dose)", [Language.IT]: "Fagioli neri (lattina)", [Language.EN]: "Black beans (canned)" },
+  "Rôti porc": { [Language.FR]: "Rôti de porc (dans le filet)", [Language.DE]: "Schweinebraten (Filet)", [Language.IT]: "Arrosto di maiale (filetto)", [Language.EN]: "Roasted pork (tenderloin)" },
+  "Légumes soupe": { [Language.FR]: "Légumes pour soupe (Mix frais)", [Language.DE]: "Suppengemüse (frischer Mix)", [Language.IT]: "Verdure per zuppa (misto fresco)", [Language.EN]: "Soup vegetables (fresh mix)" },
+  "Feuilles lasagne": { [Language.FR]: "Feuilles de Lasagne (aux œufs)", [Language.DE]: "Lasagneblätter (Eier)", [Language.IT]: "Fogli di lasagna (all'uovo)", [Language.EN]: "Lasagna sheets (egg)" },
+  "Epinards": { [Language.FR]: "Épinards (frais, en branches)", [Language.DE]: "Spinat (frisch, Blatt)", [Language.IT]: "Spinaci (freschi, in foglia)", [Language.EN]: "Spinach (fresh, leaf)" },
+  "Chèvre": { [Language.FR]: "Bûche de Chèvre (Sainte-Maure)", [Language.DE]: "Ziegenkäse-Rolle", [Language.IT]: "Caprino (tronchetto)", [Language.EN]: "Goat cheese log" },
+  "Bechamel": { [Language.FR]: "Sauce Béchamel (prête à l'emploi)", [Language.DE]: "Bechamelsauce (fertig)", [Language.IT]: "Besciamella (pronta)", [Language.EN]: "Bechamel sauce (ready to use)" },
+  "Courge": { [Language.FR]: "Courge Butternut (Bio)", [Language.DE]: "Butternut-Kürbis (Bio)", [Language.IT]: "Zucca Butternut (Bio)", [Language.EN]: "Butternut squash (Organic)" },
+  "Poisson": { [Language.FR]: "Poisson frais (selon arrivage)", [Language.DE]: "Frischer Fisch", [Language.IT]: "Pesce fresco", [Language.EN]: "Fresh fish" },
+  "Viande": { [Language.FR]: "Viande de boucherie (Suisse)", [Language.DE]: "Fleisch (Schweiz)", [Language.IT]: "Carne (Svizzera)", [Language.EN]: "Meat (Swiss)" },
+  "Fruits": { [Language.FR]: "Fruits de saison (Bio)", [Language.DE]: "Saisonfrüchte (Bio)", [Language.IT]: "Frutta di stagione (Bio)", [Language.EN]: "Seasonal fruits (Organic)" },
 };
 
 const tStr = (s: string, l: Language, dict: any) => {
-  if (l === Language.FR) return s;
   return dict[s]?.[l] || s;
 };
 
 const SERVICE_TRANSLATIONS: Record<Language, any> = {
   [Language.FR]: {
     defaultInstructions: [
-      "Laver et préparer tous les ingrédients.",
-      "Cuire les éléments principaux (viande, féculents) selon votre goût.",
-      "Assembler le plat avec les légumes et l'assaisonnement.",
-      "Servir chaud ou froid selon la recette."
+      "Préparation : Laver soigneusement tous les légumes et préparer votre plan de travail.",
+      "Découpe : Couper les ingrédients en morceaux réguliers (dés ou lamelles) pour une cuisson uniforme.",
+      "Cuisson des protéines : Faire chauffer une poêle avec un filet d'huile. Saisir la viande ou le poisson pendant 6 à 8 minutes à feu moyen, en retournant à mi-cuisson.",
+      "Accompagnement : Si nécessaire, cuire les féculents (riz, pâtes) dans une casserole d'eau bouillante salée selon le temps indiqué sur le paquet (environ 10 min).",
+      "Assemblage : Mélanger les légumes avec la source de protéines, ajouter l'assaisonnement et laisser mijoter 3 à 5 minutes.",
+      "Service : Dresser dans des assiettes chaudes, ajouter une touche d'herbes fraîches si vous en avez. Bon appétit !"
     ],
     categories: { veg: "Légumes", meat: "Viande", grocery: "Epicerie", dairy: "Crèmerie", bakery: "Boulangerie", drinks: "Boissons", frozen: "Surgelés", fish: "Poisson", fruit: "Fruits", fresh: "Frais", canned: "Conserve" },
     chefTip: "Conseil du Chef",
-    chefTipDesc: "N'hésitez pas à assaisonner selon vos goûts à chaque étape.",
+    chefTipDesc: "N'ayez pas peur de goûter votre plat en cours de route ! C'est le secret pour ajuster le sel et le poivre comme un pro.",
     prep: "Prép",
     min: "min",
     kcal: "kcal",
@@ -294,9 +271,7 @@ const makeRecipe = (title: string, desc: string, price: number, ings: {i:string,
   const translatedDesc = tStr(desc, lang, RECIPE_DICTIONARY);
   let img = `https://tse2.mm.bing.net/th?q=${encodeURIComponent(title + " " + desc + " gourmet plated food photography high resolution")}&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate`;
   
-  if (title === "Poulet Rôti") img = POULET_ROTI_IMAGE;
-
-  // Instructions par défaut améliorées
+  // Valeurs par défaut
   let instructions = [...t.defaultInstructions];
   let prepTime = 15;
   let cookTime = 20;
@@ -307,10 +282,106 @@ const makeRecipe = (title: string, desc: string, price: number, ings: {i:string,
   let fatCal = Math.round(cals * 0.3);
   let proteinCal = cals - carbsCal - fatCal;
 
-  // --- REGLAGES SPECIFIQUES ---
-  // Note: Titles are still in French in the code logic for now, but we could translate them if needed.
-  // For this baseline, we'll keep the logic matching French titles but we should ideally use IDs.
-  
+  if (title === "Poulet Rôti") {
+    img = POULET_ROTI_IMAGE;
+    if (lang === Language.FR) {
+      instructions = [
+        "Préchauffer le four à 200°C. Placer les cuisses de poulet dans un plat allant au four.",
+        "Badigeonner le poulet d'huile d'olive, saler, poivrer et ajouter des herbes de Provence.",
+        "Enfourner pour 35 à 40 minutes. À mi-cuisson, ajouter un petit fond d'eau dans le plat.",
+        "Pendant ce temps, cuire les haricots à la vapeur ou dans l'eau bouillante pendant 10-12 minutes.",
+        "Vérifier que le poulet est bien doré et croustillant avant de servir avec les haricots chauds."
+      ];
+    }
+    prepTime = 10;
+    cookTime = 40;
+  }
+
+  if (title === "Pâtes Carbonara") {
+    if (lang === Language.FR) {
+      instructions = [
+        "Porter une grande casserole d'eau salée à ébullition et cuire les pâtes selon le temps indiqué (souvent 9-11 min).",
+        "Pendant ce temps, faire dorer les lardons dans une poêle sans ajout de matière grasse pendant 5 minutes.",
+        "Dans un bol, battre les œufs avec du poivre et une bonne dose de parmesan (ou fromage râpé).",
+        "Égoutter les pâtes, les remettre dans la casserole chaude (feu éteint) et ajouter les lardons.",
+        "Verser le mélange d'œufs sur les pâtes chaudes et mélanger énergiquement : la chaleur des pâtes va cuire l'œuf pour créer une sauce crémeuse.",
+        "Servir immédiatement avec un peu de fromage supplémentaire."
+      ];
+    }
+    prepTime = 5;
+    cookTime = 12;
+  }
+
+  if (title === "Hachis Parmentier") {
+    if (lang === Language.FR) {
+      instructions = [
+        "Éplucher les pommes de terre, les couper en morceaux et les cuire 20 min dans l'eau bouillante salée.",
+        "Pendant ce temps, faire revenir le bœuf haché dans une poêle avec un peu d'huile pendant 8 minutes.",
+        "Écraser les pommes de terre en purée avec un peu de lait et de beurre.",
+        "Dans un plat à gratin, étaler la viande, puis recouvrir avec la purée de pommes de terre.",
+        "Saupoudrer de fromage et enfourner 15 minutes à 200°C pour faire gratiner le dessus."
+      ];
+    }
+    prepTime = 15;
+    cookTime = 35;
+  }
+
+  if (title === "Pavé Saumon") {
+    if (lang === Language.FR) {
+      instructions = [
+        "Cuire le riz dans l'eau bouillante salée (environ 10-12 minutes).",
+        "Assaisonner le saumon de sel et poivre côté chair.",
+        "Faire chauffer une poêle avec un peu d'huile. Déposer le saumon côté peau en premier.",
+        "Cuire 4 minutes côté peau, puis retourner délicatement et cuire 3 minutes de l'autre côté.",
+        "Servir le saumon bien chaud sur le lit de riz avec un quartier de citron."
+      ];
+    }
+    prepTime = 5;
+    cookTime = 15;
+  }
+
+  if (title === "Curry Légumes") {
+    if (lang === Language.FR) {
+      instructions = [
+        "Cuire le riz dans l'eau bouillante salée (10-12 min).",
+        "Couper les légumes en dés. Les faire revenir dans une sauteuse avec un peu d'huile pendant 5 minutes.",
+        "Ajouter le lait de coco et une cuillère à soupe de curry en poudre.",
+        "Laisser mijoter à feu doux pendant 15 minutes jusqu'à ce que les légumes soient tendres.",
+        "Servir le curry bien crémeux sur le riz chaud."
+      ];
+    }
+    prepTime = 10;
+    cookTime = 20;
+  }
+
+  if (title === "Dahl Lentilles") {
+    if (lang === Language.FR) {
+      instructions = [
+        "Rincer les lentilles à l'eau froide.",
+        "Dans une casserole, mélanger les lentilles, les tomates concassées et deux fois leur volume d'eau.",
+        "Porter à ébullition, puis baisser le feu et laisser mijoter 20 minutes en remuant de temps en temps.",
+        "Ajouter un peu de lait de coco ou de crème en fin de cuisson pour plus d'onctuosité.",
+        "Assaisonner généreusement et servir avec du riz ou du pain."
+      ];
+    }
+    prepTime = 5;
+    cookTime = 25;
+  }
+
+  if (title === "Wok Tofu") {
+    if (lang === Language.FR) {
+      instructions = [
+        "Couper le tofu en dés et les brocolis en petits bouquets.",
+        "Faire chauffer un wok ou une grande poêle avec de l'huile.",
+        "Saisir le tofu jusqu'à ce qu'il soit doré (environ 5 minutes).",
+        "Ajouter les brocolis et un petit fond d'eau, couvrir et laisser cuire 5 minutes à la vapeur.",
+        "Ajouter un trait de sauce soja et faire sauter le tout à feu vif pendant 2 minutes avant de servir."
+      ];
+    }
+    prepTime = 10;
+    cookTime = 12;
+  }
+
   if (title === "Lomo Saltado") {
     img = LOMO_SALTADO_IMAGE;
     if (lang === Language.FR) {
@@ -406,6 +477,118 @@ const makeRecipe = (title: string, desc: string, price: number, ings: {i:string,
     carbsCal = 100;
     fatCal = 200;
     proteinCal = 100;
+  }
+
+  if (title.includes("Burger")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Faire griller les pains burger au grille-pain ou à la poêle.",
+        "Cuire le steak (viande ou végétal) dans une poêle avec un peu d'huile (4 min par face).",
+        "Pendant ce temps, préparer la garniture : laver la salade, couper les tomates et l'oignon.",
+        "Monter le burger : étaler la sauce sur le pain, ajouter la salade, le steak chaud, le fromage et les légumes.",
+        "Servir avec des frites ou une salade."
+      ];
+    }
+    prepTime = 10;
+    cookTime = 10;
+  }
+
+  if (title.includes("Croque")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Beurrer légèrement les tranches de pain de mie.",
+        "Disposer le jambon (ou les tomates) et le fromage entre deux tranches de pain.",
+        "Faire dorer à la poêle 3 minutes de chaque côté ou utiliser un appareil à croque-monsieur.",
+        "Le fromage doit être bien fondu et le pain croustillant.",
+        "Servir chaud avec une petite salade verte."
+      ];
+    }
+    prepTime = 5;
+    cookTime = 6;
+  }
+
+  if (title.includes("Filet Perche")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Rincer les filets de perche et les éponger avec du papier absorbant.",
+        "Passer les filets dans la farine, secouer pour enlever l'excédent.",
+        "Faire fondre le beurre dans une poêle jusqu'à ce qu'il mousse.",
+        "Cuire les filets 2 minutes de chaque côté jusqu'à ce qu'ils soient bien dorés.",
+        "Arroser de jus de citron et parsemer de persil frais avant de servir."
+      ];
+    }
+    prepTime = 10;
+    cookTime = 5;
+  }
+
+  if (title.includes("Gratin")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Préchauffer le four à 180°C.",
+        "Éplucher et couper les légumes (pommes de terre, courgettes) en fines rondelles.",
+        "Disposer les légumes dans un plat à gratin beurré, en alternant les couches.",
+        "Mélanger la crème avec l'ail haché, du sel et du poivre, puis verser sur les légumes.",
+        "Enfourner pour 45 minutes jusqu'à ce que les légumes soient tendres et le dessus gratiné."
+      ];
+    }
+    prepTime = 15;
+    cookTime = 45;
+  }
+
+  if (title.includes("Rôti Porc")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Préchauffer le four à 180°C.",
+        "Saisir le rôti dans une cocotte avec un peu d'huile pour le colorer sur toutes les faces.",
+        "Ajouter les pommes de terre coupées en morceaux et les gousses d'ail autour du rôti.",
+        "Enfourner pour 45 à 60 minutes selon la taille du rôti. Arroser régulièrement avec le jus de cuisson.",
+        "Laisser reposer 10 minutes avant de trancher et de servir."
+      ];
+    }
+    prepTime = 10;
+    cookTime = 60;
+  }
+
+  if (title.includes("Soupe") || title.includes("Velouté")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Laver et couper les légumes en gros morceaux.",
+        "Mettre les légumes dans une grande casserole et couvrir d'eau (ou de bouillon).",
+        "Porter à ébullition et laisser cuire 20 à 25 minutes à feu moyen.",
+        "Mixer le tout à l'aide d'un mixeur plongeant jusqu'à obtenir une texture lisse.",
+        "Ajouter un peu de crème ou de lait de coco, assaisonner et servir avec des croûtons."
+      ];
+    }
+    prepTime = 10;
+    cookTime = 25;
+  }
+
+  if (title.includes("Fajitas")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Couper le poulet (ou les légumes) en lanières et les poivrons en lamelles.",
+        "Faire sauter le tout dans une poêle avec un peu d'huile et les épices fajitas pendant 10 minutes.",
+        "Réchauffer les tortillas quelques secondes au micro-ondes ou à la poêle.",
+        "Garnir les tortillas avec le mélange chaud, ajouter un peu de crème ou de guacamole.",
+        "Rouler et déguster immédiatement."
+      ];
+    }
+    prepTime = 15;
+    cookTime = 10;
+  }
+
+  if (title.includes("Lasagnes")) {
+    if (lang === Language.FR) {
+      instructions = [
+        "Préchauffer le four à 180°C.",
+        "Préparer la garniture (épinards/chèvre ou lentilles/tomate) dans une casserole.",
+        "Dans un plat à gratin, alterner les couches : sauce, feuilles de lasagne, béchamel.",
+        "Terminer par une couche de béchamel et de fromage râpé.",
+        "Enfourner pour 30 à 35 minutes jusqu'à ce que le dessus soit bien doré."
+      ];
+    }
+    prepTime = 20;
+    cookTime = 35;
   }
 
   if (title.includes("Tian")) {
@@ -832,7 +1015,7 @@ const PLAN_V1 = [
     vgn: { l: makeRecipe("Dahl Lentilles", "Corail", 5.0, [{i:"Lentilles",q:"200g",c:"Epicerie"},{i:"Tomates",q:"300g",c:"Légumes"}]), d: makeRecipe("Wok Tofu", "Brocolis", 7.0, [{i:"Tofu",q:"200g",c:"Frais"},{i:"Brocolis",q:"300g",c:"Légumes"}]) }
   }, BF_V1_OPTS[0]),
   makeDay("Mardi", {
-    std: { l: makeRecipe("Pavé Saumon", "Riz", 14.5, [{i:"Saumon",q:"2",c:"Poisson"},{i:"Riz",q:"150g",c:"Epicerie"}]), d: makeRecipe("Hachis Parmentier", "Boeuf", 8.5, [{i:"Boeuf haché",q:"300g",c:"Viande"},{i:"Pommes terre",q:"500g",c:"Légumes"}]) },
+    std: { l: makeRecipe("Pavé Saumon", "Riz", 14.5, [{i:"Saumon",q:"2",c:"Poisson"},{i:"Riz",q:"150g",c:"Epicerie"}]), d: makeRecipe("Hachis Parmentier", "Boeuf", 8.5, [{i:"Boeuf haché",q:"300g",c:"Viande"},{i:"Pommes terre",q:"500g",c:"Légumes"}]), },
     veg: { l: makeRecipe("Omelette Feta", "Epinards", 7.0, [{i:"Oeufs",q:"4",c:"Crèmerie"},{i:"Feta",q:"100g",c:"Crèmerie"}]), d: makeRecipe("Chili Végé", "Haricots", 6.0, [{i:"Haricots r.",q:"400g",c:"Conserve"},{i:"Maïs",q:"150g",c:"Conserve"}]) },
     vgn: { l: makeRecipe("Steak Soja", "Quinoa", 7.5, [{i:"Steak soja",q:"2",c:"Frais"},{i:"Quinoa",q:"150g",c:"Epicerie"}]), d: makeRecipe("Chili Sin Carne", "Riz", 5.5, [{i:"Haricots r.",q:"400g",c:"Conserve"},{i:"Riz",q:"150g",c:"Epicerie"}]) }
   }, BF_V1_OPTS[1]),

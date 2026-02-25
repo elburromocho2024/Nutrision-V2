@@ -484,7 +484,7 @@ const App: React.FC = () => {
 
             {!loading && weekPlan.length > 0 && (
               <div className="space-y-6">
-                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
                     <div className="bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 w-full md:w-auto justify-center">
                         <div className="flex items-center gap-2 text-brand-green"><Icons.Users className="w-4 h-4" /><span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">{t.portions}</span></div>
                         <div className="h-4 w-px bg-gray-200"></div>
@@ -492,7 +492,7 @@ const App: React.FC = () => {
                         <span className="font-bold w-4 text-center text-brand-black">{portions}</span>
                         <button onClick={() => setPortions(portions + 1)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-600 font-bold transition-colors">+</button>
                     </div>
-                    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-1 md:justify-center w-full md:w-auto items-center">
+                    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-1 md:justify-start w-full md:w-auto items-center">
                       
                       {weekPlan.map((day, index) => {
                         const dayNames = [t.monday, t.tuesday, t.wednesday, t.thursday, t.friday, t.saturday, t.sunday];
