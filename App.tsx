@@ -375,20 +375,20 @@ const App: React.FC = () => {
         />
       )}
 
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 h-16">
-        <div className="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 min-h-16 py-2">
+        <div className="max-w-6xl mx-auto px-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 cursor-pointer" onClick={handleLogoClick}>
             <div className="w-8 h-8 bg-brand-green rounded-full flex items-center justify-center text-white"><Icons.Leaf className="w-4 h-4" /></div>
             <span className="font-sans text-xl font-bold tracking-tight">{t.appName}</span>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center md:items-center gap-2 md:gap-4">
             <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
               {Object.values(Language).map((l) => (
                 <button
                   key={l}
                   onClick={() => setLang(l)}
-                  className={`px-2 py-1 rounded text-[10px] font-bold uppercase transition-all ${lang === l ? 'bg-white shadow-sm text-brand-black' : 'text-gray-400 hover:text-gray-600'}`}
+                  className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase transition-all ${lang === l ? 'bg-white shadow-sm text-brand-black' : 'text-gray-400 hover:text-gray-600'}`}
                 >
                   {l}
                 </button>
@@ -397,8 +397,8 @@ const App: React.FC = () => {
 
             {weekPlan.length > 0 && (
               <div className="flex items-center bg-gray-100 p-1 rounded-full">
-                <button onClick={() => setView('PLANNER')} className={`px-6 py-1.5 rounded-full text-xs font-bold transition-all ${view === 'PLANNER' ? 'bg-white shadow-sm text-brand-black' : 'text-gray-500'}`}>{t.planner}</button>
-                <button onClick={() => setView('SHOPPING')} className={`px-6 py-1.5 rounded-full text-xs font-bold transition-all ${view === 'SHOPPING' ? 'bg-white shadow-sm text-brand-black' : 'text-gray-500'}`}>{t.shopping}</button>
+                <button onClick={() => setView('PLANNER')} className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${view === 'PLANNER' ? 'bg-white shadow-sm text-brand-black' : 'text-gray-500'}`}>{t.planner}</button>
+                <button onClick={() => setView('SHOPPING')} className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${view === 'SHOPPING' ? 'bg-white shadow-sm text-brand-black' : 'text-gray-500'}`}>{t.shopping}</button>
               </div>
             )}
           </div>

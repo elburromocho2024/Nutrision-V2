@@ -10,13 +10,15 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@capacitor/cli": "^7.4.4",
+    "@google/genai": "^1.30.0",
+    "@tailwindcss/vite": "^4.2.1",
+    "@vitejs/plugin-react": "^5.1.1",
+    "lucide-react": "^0.554.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "@google/genai": "^1.30.0",
-    "lucide-react": "^0.554.0",
-    "@capacitor/cli": "^7.4.4",
-    "vite": "^7.2.6",
-    "@vitejs/plugin-react": "^5.1.1"
+    "tailwindcss": "^4.2.1",
+    "vite": "^7.2.6"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
