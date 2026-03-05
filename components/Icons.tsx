@@ -26,7 +26,9 @@ import {
   ChevronDown,
   Flame,
   Camera,
-  BookOpen
+  BookOpen,
+  Plus,
+  Trash
 } from 'lucide-react';
 
 export const Icons = {
@@ -56,5 +58,7 @@ export const Icons = {
   ChevronDown,
   Flame,
   Camera,
-  BookOpen
+  BookOpen,
+  Plus,
+  Trash
 };

@@ -1,0 +1,44 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores user physical data and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "age": { "type": "integer" },
+        "weight": { "type": "number", "description": "Weight in kg" },
+        "height": { "type": "number", "description": "Height in cm" },
+        "activityLevel": { "type": "string", "enum": ["sedentary", "light", "moderate", "active", "very_active"] },
+        "dietaryPreference": { "type": "string", "enum": ["omnivore", "vegetarian", "vegan", "pescatarian"] },
+        "allergies": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "MealPlan": {
+      "title": "Meal Plan",
+      "description": "A saved weekly meal plan",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Owner's UID" },
+        "planData": { "type": "object", "description": "The full JSON of the meal plan" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["uid", "planData"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document"
+    },
+    "/users/{userId}/mealPlans/{planId}": {
+      "schema": "MealPlan",
+      "description": "User's saved meal plans"
+    }
+  }
+}

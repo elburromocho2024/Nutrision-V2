@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { DailyPlan, ViewState, Recipe, DietMode, Supermarket, Language } from './types';
+import { DailyPlan, ViewState, Recipe, DietMode, Supermarket, Language, UserProfile, ActivityLevel, FamilyMember } from './types';
 import { generateWeeklyPlan } from './services/geminiService';
 import { ShoppingList } from './components/ShoppingList';
 import { Icons } from './components/Icons';
 import { translations } from './translations';
+import { auth, db } from './firebase';
+import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut, User } from 'firebase/auth';
+import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
 
 // --- CONSTANTS ---
 // Utilisation du service Google Favicon pour une fiabilité maximale des logos
@@ -27,6 +30,219 @@ const STORE_CATALOGS: Record<Supermarket, string> = {
 };
 
 // --- COMPONENTS ---
+
+const ProfileModal = ({ 
+  profile, 
+  onClose, 
+  onSave, 
+  lang 
+}: { 
+  profile: UserProfile, 
+  onClose: () => void, 
+  onSave: (data: Partial<UserProfile>) => void,
+  lang: Language
+}) => {
+  const t = translations[lang];
+  const [formData, setFormData] = useState<Partial<UserProfile>>(profile);
+  const [showFamilyForm, setShowFamilyForm] = useState(false);
+  const [newMember, setNewMember] = useState<Partial<FamilyMember>>({
+    activityLevel: 'moderate'
+  });
+
+  const addMember = () => {
+    if (newMember.name && newMember.age && newMember.weight && newMember.height) {
+      const members = [...(formData.familyMembers || []), { ...newMember, id: Math.random().toString(36).substr(2, 9) } as FamilyMember];
+      setFormData({ ...formData, familyMembers: members });
+      setNewMember({ activityLevel: 'moderate' });
+      setShowFamilyForm(false);
+    }
+  };
+
+  const removeMember = (id: string) => {
+    setFormData({
+      ...formData,
+      familyMembers: formData.familyMembers?.filter(m => m.id !== id)
+    });
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl animate-slide-up flex flex-col max-h-[90vh]">
+        <div className="p-6 border-b border-gray-100 flex items-center justify-between flex-shrink-0">
+          <h2 className="font-serif text-2xl font-bold">{t.profile}</h2>
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors"><Icons.ArrowRight className="w-5 h-5" /></button>
+        </div>
+        
+        <div className="p-6 space-y-8 overflow-y-auto flex-grow">
+          {/* Main User Profile */}
+          <section className="space-y-4">
+            <h3 className="text-sm font-bold text-brand-green uppercase tracking-widest flex items-center gap-2">
+              <Icons.Users className="w-4 h-4" /> {t.myInfo || 'Mes Informations'}
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-gray-400 uppercase">{t.age}</label>
+                <input 
+                  type="number" 
+                  value={formData.age || ''} 
+                  onChange={e => setFormData({...formData, age: parseInt(e.target.value)})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-brand-green outline-none"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-gray-400 uppercase">{t.weight}</label>
+                <input 
+                  type="number" 
+                  value={formData.weight || ''} 
+                  onChange={e => setFormData({...formData, weight: parseFloat(e.target.value)})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-brand-green outline-none"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-gray-400 uppercase">{t.height}</label>
+                <input 
+                  type="number" 
+                  value={formData.height || ''} 
+                  onChange={e => setFormData({...formData, height: parseFloat(e.target.value)})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-brand-green outline-none"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-gray-400 uppercase">{t.activity}</label>
+                <select 
+                  value={formData.activityLevel || 'moderate'} 
+                  onChange={e => setFormData({...formData, activityLevel: e.target.value as ActivityLevel})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-brand-green outline-none"
+                >
+                  <option value="sedentary">{t.sedentary}</option>
+                  <option value="light">{t.light}</option>
+                  <option value="moderate">{t.moderate}</option>
+                  <option value="active">{t.active}</option>
+                  <option value="very_active">{t.veryActive}</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          {/* Family Members Section */}
+          <section className="space-y-4 pt-6 border-t border-gray-100">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-brand-green uppercase tracking-widest flex items-center gap-2">
+                <Icons.Users className="w-4 h-4" /> {t.familyMembers || 'Membres de la famille'}
+              </h3>
+              <button 
+                onClick={() => setShowFamilyForm(!showFamilyForm)}
+                className="text-xs font-bold text-brand-green hover:underline flex items-center gap-1"
+              >
+                <Icons.Plus className="w-3 h-3" /> {t.addMember || 'Ajouter un membre'}
+              </button>
+            </div>
+
+            {showFamilyForm && (
+              <div className="bg-gray-50 rounded-2xl p-4 space-y-4 border border-gray-100 animate-fade-in">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase">{t.name || 'Nom'}</label>
+                    <input 
+                      type="text" 
+                      placeholder="Ex: Julie"
+                      value={newMember.name || ''} 
+                      onChange={e => setNewMember({...newMember, name: e.target.value})}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase">{t.age}</label>
+                    <input 
+                      type="number" 
+                      value={newMember.age || ''} 
+                      onChange={e => setNewMember({...newMember, age: parseInt(e.target.value)})}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase">{t.weight}</label>
+                    <input 
+                      type="number" 
+                      value={newMember.weight || ''} 
+                      onChange={e => setNewMember({...newMember, weight: parseFloat(e.target.value)})}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase">{t.height}</label>
+                    <input 
+                      type="number" 
+                      value={newMember.height || ''} 
+                      onChange={e => setNewMember({...newMember, height: parseFloat(e.target.value)})}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase">{t.activity}</label>
+                    <select 
+                      value={newMember.activityLevel || 'moderate'} 
+                      onChange={e => setNewMember({...newMember, activityLevel: e.target.value as ActivityLevel})}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none"
+                    >
+                      <option value="sedentary">{t.sedentary}</option>
+                      <option value="light">{t.light}</option>
+                      <option value="moderate">{t.moderate}</option>
+                      <option value="active">{t.active}</option>
+                      <option value="very_active">{t.veryActive}</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={addMember} className="flex-grow py-2 bg-brand-green text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-all">Ajouter</button>
+                  <button onClick={() => setShowFamilyForm(false)} className="px-4 py-2 bg-gray-200 text-gray-600 rounded-xl text-xs font-bold hover:bg-gray-300 transition-all">Annuler</button>
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-2">
+              {formData.familyMembers?.map(member => (
+                <div key={member.id} className="flex items-center justify-between bg-gray-50 rounded-xl p-3 border border-gray-100 group">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green font-bold text-xs">
+                      {member.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-brand-black">{member.name}</p>
+                      <p className="text-[10px] text-gray-400 uppercase">{member.age} ans • {member.weight}kg • {member.height}cm</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => removeMember(member.id)}
+                    className="p-2 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
+                  >
+                    <Icons.Trash className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+              {(!formData.familyMembers || formData.familyMembers.length === 0) && !showFamilyForm && (
+                <p className="text-center py-4 text-xs text-gray-400 italic">Aucun autre membre ajouté</p>
+              )}
+            </div>
+          </section>
+        </div>
+
+        <div className="p-6 border-t border-gray-100 flex-shrink-0">
+          <button 
+            onClick={() => onSave(formData)}
+            className="w-full py-4 bg-brand-black text-white rounded-2xl font-bold hover:bg-gray-800 transition-all"
+          >
+            {t.save}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // 1. Recipe Detail View (Lidl-inspired)
 const RecipeDetail = ({ 
@@ -113,20 +329,25 @@ const RecipeDetail = ({
                <div className="flex items-center gap-2">
                  <span className="bg-white/20 backdrop-blur px-4 py-2 rounded-full flex items-center gap-2 border border-white/30 text-white">
                    <Icons.Flame className="w-4 h-4 text-orange-400" /> 
-                   <span>{recipe.calories} <span className="text-[10px] opacity-80 font-medium uppercase tracking-tight">kcal/portion</span></span>
+                                       <span>
+                      {recipe.calories * portions} 
+                      <span className="text-[10px] opacity-80 font-medium uppercase tracking-tight ml-1">
+                        kcal {portions > 1 ? `total (${portions} ${t.portions})` : '/ portion'}
+                      </span>
+                    </span>
                  </span>
                  {recipe.carbsCal !== undefined && (
                    <>
                      <span className="text-white/60 font-serif text-xl mx-1">=</span>
                      <div className="flex flex-wrap gap-2">
                        <span className="bg-white/10 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-2 border border-white/20 text-white text-xs">
-                         <Icons.Flame className="w-3 h-3 text-orange-400/70" /> {recipe.carbsCal} {t.carbs}
+                         <Icons.Flame className="w-3 h-3 text-orange-400/70" /> {recipe.carbsCal ? recipe.carbsCal * portions : 0} {t.carbs}
                        </span>
                        <span className="bg-white/10 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-2 border border-white/20 text-white text-xs">
-                         <Icons.Flame className="w-3 h-3 text-orange-400/70" /> {recipe.fatCal} {t.fats}
+                         <Icons.Flame className="w-3 h-3 text-orange-400/70" /> {recipe.fatCal ? recipe.fatCal * portions : 0} {t.fats}
                        </span>
                        <span className="bg-white/10 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-2 border border-white/20 text-white text-xs">
-                         <Icons.Flame className="w-3 h-3 text-orange-400/70" /> {recipe.proteinCal} {t.proteins}
+                         <Icons.Flame className="w-3 h-3 text-orange-400/70" /> {recipe.proteinCal ? recipe.proteinCal * portions : 0} {t.proteins}
                        </span>
                      </div>
                    </>
@@ -296,13 +517,120 @@ const App: React.FC = () => {
   const [portions, setPortions] = useState<number>(2);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
   const t = translations[lang];
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      if (firebaseUser) {
+        // Fetch profile
+        const userDoc = doc(db, 'users', firebaseUser.uid);
+        onSnapshot(userDoc, (docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data() as UserProfile;
+            setProfile(data);
+            // Auto-show modal if profile is incomplete
+            if (!data.age || !data.weight || !data.height) {
+              setShowProfileModal(true);
+            }
+          } else {
+            // Create initial profile
+            const initialProfile: UserProfile = {
+              uid: firebaseUser.uid,
+              displayName: firebaseUser.displayName,
+              email: firebaseUser.email,
+              createdAt: new Date().toISOString()
+            };
+            setDoc(userDoc, initialProfile);
+            setProfile(initialProfile);
+            setShowProfileModal(true);
+          }
+        });
+      } else {
+        setProfile(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (weekPlan.length > 0) {
       handleGeneratePlan(undefined, currentPlanIndex);
     }
   }, [lang]);
+
+  const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error: any) {
+      if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
+        // Silently ignore user-initiated cancellation
+        return;
+      }
+      console.error("Login error:", error);
+    }
+  };
+
+  const handleLogout = () => signOut(auth);
+
+  const handleSaveProfile = async (data: Partial<UserProfile>) => {
+    if (!user) return;
+    const userDoc = doc(db, 'users', user.uid);
+    await setDoc(userDoc, { ...profile, ...data }, { merge: true });
+    setShowProfileModal(false);
+  };
+
+  const calculateDailyNeeds = () => {
+    if (!profile || !profile.weight || !profile.height || !profile.age) return null;
+    
+    const multipliers: Record<ActivityLevel, number> = {
+      sedentary: 1.2,
+      light: 1.375,
+      moderate: 1.55,
+      active: 1.725,
+      very_active: 1.9
+    };
+
+    const getNeeds = (p: { age: number, weight: number, height: number, activityLevel?: ActivityLevel }) => {
+      const bmr = 10 * p.weight + 6.25 * p.height - 5 * p.age;
+      return Math.round(bmr * (multipliers[p.activityLevel || 'moderate']));
+    };
+
+    let totalNeeds = getNeeds({
+      age: profile.age,
+      weight: profile.weight,
+      height: profile.height,
+      activityLevel: profile.activityLevel
+    });
+
+    // Add family members needs
+    if (profile.familyMembers) {
+      profile.familyMembers.forEach(member => {
+        totalNeeds += getNeeds(member);
+      });
+    }
+
+    // If portions is greater than the number of defined people, add "average" portions
+    const definedPeopleCount = 1 + (profile.familyMembers?.length || 0);
+    if (portions > definedPeopleCount) {
+      const extraPortions = portions - definedPeopleCount;
+      const avgNeeds = totalNeeds / definedPeopleCount;
+      totalNeeds += Math.round(avgNeeds * extraPortions);
+    } else if (portions < definedPeopleCount) {
+      // If portions is LESS than defined people, we scale down proportionally
+      // (Assuming the user is selecting a subset of the family)
+      totalNeeds = Math.round((totalNeeds / definedPeopleCount) * portions);
+    }
+
+    return totalNeeds;
+  };
+
+  const dailyNeeds = calculateDailyNeeds();
 
   const handleGeneratePlan = async (initialMode?: DietMode, newIndex: number = 0) => {
     if (initialMode) setDietMode(initialMode);
@@ -375,6 +703,15 @@ const App: React.FC = () => {
         />
       )}
 
+      {showProfileModal && profile && (
+        <ProfileModal 
+          profile={profile}
+          onClose={() => setShowProfileModal(false)}
+          onSave={handleSaveProfile}
+          lang={lang}
+        />
+      )}
+
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 min-h-16 py-2">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 cursor-pointer" onClick={handleLogoClick}>
@@ -393,6 +730,27 @@ const App: React.FC = () => {
                   {l}
                 </button>
               ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => setShowProfileModal(true)}
+                    className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 hover:border-brand-green transition-all"
+                  >
+                    <img src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}`} alt="User" className="w-full h-full object-cover" />
+                  </button>
+                  <button onClick={handleLogout} className="text-[10px] font-bold uppercase text-gray-400 hover:text-red-500 transition-colors">{t.logout}</button>
+                </div>
+              ) : (
+                <button 
+                  onClick={handleLogin}
+                  className="bg-brand-black text-white px-4 py-1.5 rounded-full text-xs font-bold hover:bg-gray-800 transition-all flex items-center gap-2"
+                >
+                  <Icons.Users className="w-3 h-3" /> {t.login}
+                </button>
+              )}
             </div>
 
             {weekPlan.length > 0 && (
@@ -415,22 +773,35 @@ const App: React.FC = () => {
                   <h1 className="font-sans text-3xl font-bold text-brand-black mb-1 flex items-center justify-center md:justify-start gap-3">
                     {t.monday.substring(0, 3)} - {t.sunday.substring(0, 3)}
                   </h1>
-                  <button 
-                    onClick={() => handleGeneratePlan(undefined, currentPlanIndex + 1)}
-                    className="mt-1 flex items-center gap-3 text-gray-400 hover:text-brand-gold transition-colors group"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-brand-black group-hover:text-brand-gold transition-all">
-                      <Icons.Sparkles className="w-3.5 h-3.5" />
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm font-bold leading-tight">
-                        {t.generatePlan}
-                      </span>
-                      <span className="text-[10px] font-bold opacity-70">
-                        ({t.proposition} {(currentPlanIndex % 3) + 1}/3)
-                      </span>
-                    </div>
-                  </button>
+                  <div className="flex items-center gap-4">
+                    <button 
+                      onClick={() => handleGeneratePlan(undefined, currentPlanIndex + 1)}
+                      className="mt-1 flex items-center gap-3 text-gray-400 hover:text-brand-gold transition-colors group"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-brand-black group-hover:text-brand-gold transition-all">
+                        <Icons.Sparkles className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <span className="text-sm font-bold leading-tight">
+                          {t.generatePlan}
+                        </span>
+                        <span className="text-[10px] font-bold opacity-70">
+                          ({t.proposition} {(currentPlanIndex % 3) + 1}/3)
+                        </span>
+                      </div>
+                    </button>
+                    {dailyNeeds && (
+                      <div className="h-10 w-px bg-gray-200 hidden md:block"></div>
+                    )}
+                    {dailyNeeds && (
+                      <div className="flex flex-col items-center md:items-start">
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                          {portions > 1 ? `${t.dailyNeeds} (${portions} ${t.people})` : t.dailyNeeds}
+                        </span>
+                        <span className="text-sm font-bold text-brand-green">{dailyNeeds} {t.kcalDay}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 
                 <div className="flex items-center gap-3 w-full md:w-auto justify-center flex-wrap">

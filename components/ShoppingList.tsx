@@ -129,6 +129,32 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ plan, dietMode, port
 
   const totalItems = Object.values(aggregatedIngredients).reduce((acc: number, curr) => acc + (curr as Ingredient[]).length, 0);
 
+  const handleExport = () => {
+    const text = Object.entries(aggregatedIngredients)
+      .map(([cat, ings]) => {
+        const items = (ings as Ingredient[]).map(i => `- ${i.item} (${i.quantity})`).join('\n');
+        return `[${cat}]\n${items}`;
+      })
+      .join('\n\n');
+    
+    navigator.clipboard.writeText(`NutriSion - ${t.shoppingList}\n\n${text}`)
+      .then(() => alert(t.copySuccess))
+      .catch(err => console.error('Export error:', err));
+  };
+
+  const handleWhatsApp = () => {
+    const text = Object.entries(aggregatedIngredients)
+      .map(([cat, ings]) => {
+        const items = (ings as Ingredient[]).map(i => `- ${i.item} (${i.quantity})`).join('\n');
+        return `*${cat}*\n${items}`;
+      })
+      .join('\n\n');
+    
+    const message = `*NutriSion - ${t.shoppingList}*\n\n${text}`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+  };
+
   return (
     <div className="animate-fade-in pb-20">
       
@@ -136,7 +162,25 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ plan, dietMode, port
       <div className="bg-brand-black text-white rounded-2xl p-6 mb-8 shadow-lg relative z-20">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
           <div className="text-center lg:text-left">
-            <h2 className="font-serif text-2xl text-white mb-2">{t.shoppingList}</h2>
+            <div className="flex items-center justify-center lg:justify-start gap-4 mb-2">
+              <h2 className="font-serif text-2xl text-white">{t.shoppingList}</h2>
+              <div className="flex gap-2">
+                <button 
+                  onClick={handleExport}
+                  className="bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 border border-white/20 transition-all"
+                  title={t.exportList}
+                >
+                  <Icons.ArrowRight className="w-3 h-3 rotate-[-90deg]" /> {t.exportList}
+                </button>
+                <button 
+                  onClick={handleWhatsApp}
+                  className="bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 border border-[#25D366]/30 transition-all"
+                  title={t.shareWhatsApp}
+                >
+                  <Icons.ArrowRight className="w-3 h-3" /> {t.shareWhatsApp}
+                </button>
+              </div>
+            </div>
             <p className="text-gray-300 text-xl font-medium mb-4 lg:mb-0">
               {totalItems} {t.articles} {getDietLabel()} ({portions} {t.people})
             </p>

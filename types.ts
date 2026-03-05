@@ -68,6 +68,30 @@ export interface WeeklyPlan {
   days: DailyPlan[];
 }
 
+export type ActivityLevel = 'sedentary' | 'light' | 'moderate' | 'active' | 'very_active';
+
+export interface FamilyMember {
+  id: string;
+  name: string;
+  age: number;
+  weight: number;
+  height: number;
+  activityLevel: ActivityLevel;
+}
+
+export interface UserProfile {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+  age?: number;
+  weight?: number;
+  height?: number;
+  activityLevel?: ActivityLevel;
+  familyMembers?: FamilyMember[];
+  dietaryPreference?: DietMode;
+  createdAt?: string;
+}
+
 export type ViewState = 'PLANNER' | 'SHOPPING' | 'PREMIUM' | 'WORKSHOPS';
 export type DietMode = 'standard' | 'vegetarian' | 'vegan' | 'world';
 

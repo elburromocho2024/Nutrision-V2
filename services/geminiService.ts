@@ -255,6 +255,45 @@ const PANADERO_IMAGE = "https://tse4.mm.bing.net/th?q=champinon%20relleno%20yema
 // Image Poulet Rôti (Haute Résolution)
 const POULET_ROTI_IMAGE = "https://tse1.mm.bing.net/th?q=roasted%20chicken%20thighs%20with%20green%20beans%20gourmet%20plated&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
 
+// Image Soupe (Haute Résolution)
+const SOUPE_IMAGE = "https://tse4.mm.bing.net/th?q=vegetable%20soup%20gourmet%20plated%20bowl%20rustic&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Lasagnes (Haute Résolution)
+const LASAGNES_IMAGE = "https://tse2.mm.bing.net/th?q=lasagna%20slice%20gourmet%20plated%20basil&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Burger (Haute Résolution)
+const BURGER_IMAGE = "https://tse3.mm.bing.net/th?q=gourmet%20burger%20plated%20with%20fries&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Pizza (Haute Résolution)
+const PIZZA_IMAGE = "https://tse1.mm.bing.net/th?q=gourmet%20pizza%20plated%20rustic%20wood%20oven&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Pâtes (Haute Résolution)
+const PASTA_IMAGE = "https://tse4.mm.bing.net/th?q=gourmet%20pasta%20plated%20italian%20restaurant&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Poisson (Haute Résolution)
+const FISH_IMAGE = "https://tse2.mm.bing.net/th?q=gourmet%20fish%20fillet%20plated%20lemon%20herbs&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Gratin (Haute Résolution)
+const GRATIN_IMAGE = "https://tse1.mm.bing.net/th?q=potato%20gratin%20dauphinois%20plated%20gourmet&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Salade (Haute Résolution)
+const SALAD_IMAGE = "https://tse3.mm.bing.net/th?q=gourmet%20fresh%20salad%20plated%20healthy&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Dahl (Haute Résolution)
+const DAHL_IMAGE = "https://tse2.mm.bing.net/th?q=gourmet%20lentil%20dahl%20plated%20bowl%20cilantro&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Curry (Haute Résolution)
+const CURRY_IMAGE = "https://tse4.mm.bing.net/th?q=gourmet%20vegetable%20curry%20plated%20rice&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Wok (Haute Résolution)
+const WOK_IMAGE = "https://tse1.mm.bing.net/th?q=gourmet%20tofu%20vegetable%20wok%20plated&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Omelette (Haute Résolution)
+const OMELETTE_IMAGE = "https://tse4.mm.bing.net/th?q=gourmet%20omelette%20plated%20herbs&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
+// Image Chili (Haute Résolution)
+const CHILI_IMAGE = "https://tse2.mm.bing.net/th?q=gourmet%20chili%20con%20carne%20bowl%20plated&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate";
+
 // --- UTILITAIRES ---
 const createPrice = (base: number) => ({
   [Supermarket.MIGROS]: parseFloat((base).toFixed(2)),
@@ -271,6 +310,24 @@ const makeRecipe = (title: string, desc: string, price: number, ings: {i:string,
   const translatedDesc = tStr(desc, lang, RECIPE_DICTIONARY);
   let img = `https://tse2.mm.bing.net/th?q=${encodeURIComponent(title + " " + desc + " gourmet plated food photography high resolution")}&w=1920&h=1080&c=7&rs=1&p=0&dpr=2&pid=1.7&mkt=fr-CH&adlt=moderate`;
   
+  // SÉLECTION D'IMAGE HAUTE QUALITÉ
+  if (title === "Poulet Rôti") img = POULET_ROTI_IMAGE;
+  else if (title.includes("Lomo Saltado")) img = LOMO_SALTADO_IMAGE;
+  else if (title.includes("Panadero")) img = PANADERO_IMAGE;
+  else if (title.includes("Soupe") || title.includes("Velouté")) img = SOUPE_IMAGE;
+  else if (title.includes("Lasagnes")) img = LASAGNES_IMAGE;
+  else if (title.includes("Burger")) img = BURGER_IMAGE;
+  else if (title.includes("Pizza")) img = PIZZA_IMAGE;
+  else if (title.includes("Pâtes") || title.includes("Spaghetti") || title.includes("Pennes")) img = PASTA_IMAGE;
+  else if (title.includes("Poisson") || title.includes("Saumon") || title.includes("Perche")) img = FISH_IMAGE;
+  else if (title.includes("Gratin") || title.includes("Hachis Parmentier")) img = GRATIN_IMAGE;
+  else if (title.includes("Salade")) img = SALAD_IMAGE;
+  else if (title.includes("Dahl")) img = DAHL_IMAGE;
+  else if (title.includes("Curry")) img = CURRY_IMAGE;
+  else if (title.includes("Wok")) img = WOK_IMAGE;
+  else if (title.includes("Omelette")) img = OMELETTE_IMAGE;
+  else if (title.includes("Chili")) img = CHILI_IMAGE;
+
   // Valeurs par défaut
   let instructions = [...t.defaultInstructions];
   let prepTime = 15;
@@ -283,7 +340,6 @@ const makeRecipe = (title: string, desc: string, price: number, ings: {i:string,
   let proteinCal = cals - carbsCal - fatCal;
 
   if (title === "Poulet Rôti") {
-    img = POULET_ROTI_IMAGE;
     if (lang === Language.FR) {
       instructions = [
         "Préchauffer le four à 200°C. Placer les cuisses de poulet dans un plat allant au four.",
@@ -297,33 +353,112 @@ const makeRecipe = (title: string, desc: string, price: number, ings: {i:string,
     cookTime = 40;
   }
 
-  if (title === "Pâtes Carbonara") {
+  if (title.includes("Pâtes") || title.includes("Spaghetti") || title.includes("Pennes")) {
     if (lang === Language.FR) {
-      instructions = [
-        "Porter une grande casserole d'eau salée à ébullition et cuire les pâtes selon le temps indiqué (souvent 9-11 min).",
-        "Pendant ce temps, faire dorer les lardons dans une poêle sans ajout de matière grasse pendant 5 minutes.",
-        "Dans un bol, battre les œufs avec du poivre et une bonne dose de parmesan (ou fromage râpé).",
-        "Égoutter les pâtes, les remettre dans la casserole chaude (feu éteint) et ajouter les lardons.",
-        "Verser le mélange d'œufs sur les pâtes chaudes et mélanger énergiquement : la chaleur des pâtes va cuire l'œuf pour créer une sauce crémeuse.",
-        "Servir immédiatement avec un peu de fromage supplémentaire."
-      ];
+      if (title.includes("Carbonara")) {
+        instructions = [
+          "Porter une grande casserole d'eau salée à ébullition et cuire les pâtes selon le temps indiqué (souvent 9-11 min).",
+          "Pendant ce temps, faire dorer les lardons dans une poêle sans ajout de matière grasse pendant 5 minutes.",
+          "Dans un bol, battre les œufs avec du poivre et une bonne dose de parmesan (ou fromage râpé).",
+          "Égoutter les pâtes, les remettre dans la casserole chaude (feu éteint) et ajouter les lardons.",
+          "Verser le mélange d'œufs sur les pâtes chaudes et mélanger énergiquement : la chaleur des pâtes va cuire l'œuf pour créer une sauce crémeuse.",
+          "Servir immédiatement avec un peu de fromage supplémentaire."
+        ];
+      } else if (title.includes("Champignons")) {
+        instructions = [
+          "Cuire les pâtes dans une grande casserole d'eau bouillante salée.",
+          "Pendant ce temps, nettoyer et couper les champignons en lamelles.",
+          "Faire revenir les champignons dans une poêle avec un peu d'huile et de l'ail haché pendant 8 minutes.",
+          "Ajouter la crème liquide, saler, poivrer et laisser mijoter 2 minutes à feu doux.",
+          "Égoutter les pâtes et les mélanger directement dans la poêle avec la sauce aux champignons.",
+          "Parsemer de persil frais avant de servir."
+        ];
+      } else if (title.includes("Bolo")) {
+        instructions = [
+          "Cuire les pâtes dans l'eau bouillante salée.",
+          "Dans une sauteuse, faire revenir l'oignon haché et la viande (ou soja) pendant 5 minutes.",
+          "Ajouter la sauce tomate, saler, poivrer et laisser mijoter à feu doux pendant 10 minutes.",
+          "Mélanger les pâtes égouttées avec la sauce bolognaise.",
+          "Servir chaud avec un peu de fromage râpé."
+        ];
+      } else if (title.includes("Pesto")) {
+        instructions = [
+          "Cuire les pâtes dans l'eau bouillante salée.",
+          "Pendant la cuisson, couper la mozzarella en petits dés.",
+          "Égoutter les pâtes en réservant une cuillère à soupe d'eau de cuisson.",
+          "Mélanger les pâtes avec le pesto, l'eau de cuisson réservée et les dés de mozzarella.",
+          "Servir immédiatement."
+        ];
+      } else if (title.includes("Risotto")) {
+        instructions = [
+          "Faire chauffer le bouillon dans une casserole.",
+          "Dans une sauteuse, faire revenir l'oignon haché dans un peu d'huile.",
+          "Ajouter le riz et remuer jusqu'à ce qu'il soit translucide.",
+          "Verser le vin blanc et laisser évaporer.",
+          "Ajouter le bouillon louche après louche, en attendant que le liquide soit absorbé avant d'en remettre.",
+          "Une fois le riz cuit et crémeux, ajouter le parmesan et les légumes (asperges ou champignons).",
+          "Servir immédiatement."
+        ];
+      } else if (title.includes("Paella")) {
+        instructions = [
+          "Faire revenir les morceaux de viande ou de poisson dans une grande poêle à paella.",
+          "Ajouter les légumes coupés en dés et faire sauter 5 minutes.",
+          "Verser le riz et le safran, bien mélanger.",
+          "Couvrir de bouillon chaud et laisser cuire sans remuer pendant 15-20 minutes.",
+          "Le riz doit absorber tout le liquide. Servir avec des quartiers de citron."
+        ];
+      } else if (title.includes("Taboulé")) {
+        instructions = [
+          "Verser la semoule dans un saladier et ajouter le même volume d'eau bouillante salée. Couvrir et laisser gonfler 5 minutes.",
+          "Pendant ce temps, couper les tomates, le concombre et les herbes très finement.",
+          "Égrainer la semoule à la fourchette.",
+          "Mélanger la semoule avec les légumes, le jus de citron, l'huile d'olive et les herbes.",
+          "Laisser reposer au frais au moins 30 minutes avant de servir."
+        ];
+      } else if (title.includes("Salade Grecque")) {
+        instructions = [
+          "Couper les tomates, le concombre et les poivrons en gros dés.",
+          "Ajouter les olives et l'oignon rouge coupé en fines lamelles.",
+          "Disposer la feta coupée en cubes sur le dessus.",
+          "Arroser d'huile d'olive, ajouter de l'origan, du sel et du poivre.",
+          "Mélanger délicatement et servir frais."
+        ];
+      } else if (title.includes("Tomates Farcies")) {
+        instructions = [
+          "Préchauffer le four à 180°C.",
+          "Couper le chapeau des tomates et les évider à la petite cuillère.",
+          "Mélanger la chair des tomates avec la farce (viande ou légumes) et des herbes.",
+          "Remplir les tomates avec ce mélange et replacer les chapeaux.",
+          "Disposer dans un plat avec un peu de riz au fond pour absorber le jus.",
+          "Enfourner pour 40 minutes."
+        ];
+      } else {
+        instructions = [
+          "Porter une grande casserole d'eau salée à ébullition.",
+          "Cuire les pâtes selon le temps indiqué sur le paquet.",
+          "Égoutter les pâtes et ajouter une noisette de beurre ou un filet d'huile d'olive.",
+          "Servir chaud en accompagnement."
+        ];
+      }
     }
     prepTime = 5;
     cookTime = 12;
   }
 
-  if (title === "Hachis Parmentier") {
-    if (lang === Language.FR) {
-      instructions = [
-        "Éplucher les pommes de terre, les couper en morceaux et les cuire 20 min dans l'eau bouillante salée.",
-        "Pendant ce temps, faire revenir le bœuf haché dans une poêle avec un peu d'huile pendant 8 minutes.",
-        "Écraser les pommes de terre en purée avec un peu de lait et de beurre.",
-        "Dans un plat à gratin, étaler la viande, puis recouvrir avec la purée de pommes de terre.",
-        "Saupoudrer de fromage et enfourner 15 minutes à 200°C pour faire gratiner le dessus."
-      ];
+  if (title.includes("Gratin") || title.includes("Hachis Parmentier")) {
+    if (title === "Hachis Parmentier") {
+      if (lang === Language.FR) {
+        instructions = [
+          "Éplucher les pommes de terre, les couper en morceaux et les cuire 20 min dans l'eau bouillante salée.",
+          "Pendant ce temps, faire revenir le bœuf haché dans une poêle avec un peu d'huile pendant 8 minutes.",
+          "Écraser les pommes de terre en purée avec un peu de lait et de beurre.",
+          "Dans un plat à gratin, étaler la viande, puis recouvrir avec la purée de pommes de terre.",
+          "Saupoudrer de fromage et enfourner 15 minutes à 200°C pour faire gratiner le dessus."
+        ];
+      }
+      prepTime = 15;
+      cookTime = 35;
     }
-    prepTime = 15;
-    cookTime = 35;
   }
 
   if (title === "Pavé Saumon") {
@@ -507,18 +642,20 @@ const makeRecipe = (title: string, desc: string, price: number, ings: {i:string,
     cookTime = 6;
   }
 
-  if (title.includes("Filet Perche")) {
-    if (lang === Language.FR) {
-      instructions = [
-        "Rincer les filets de perche et les éponger avec du papier absorbant.",
-        "Passer les filets dans la farine, secouer pour enlever l'excédent.",
-        "Faire fondre le beurre dans une poêle jusqu'à ce qu'il mousse.",
-        "Cuire les filets 2 minutes de chaque côté jusqu'à ce qu'ils soient bien dorés.",
-        "Arroser de jus de citron et parsemer de persil frais avant de servir."
-      ];
+  if (title.includes("Filet Perche") || title.includes("Poisson") || title.includes("Saumon")) {
+    if (title.includes("Filet Perche")) {
+      if (lang === Language.FR) {
+        instructions = [
+          "Rincer les filets de perche et les éponger avec du papier absorbant.",
+          "Passer les filets dans la farine, secouer pour enlever l'excédent.",
+          "Faire fondre le beurre dans une poêle jusqu'à ce qu'il mousse.",
+          "Cuire les filets 2 minutes de chaque côté jusqu'à ce qu'ils soient bien dorés.",
+          "Arroser de jus de citron et parsemer de persil frais avant de servir."
+        ];
+      }
+      prepTime = 10;
+      cookTime = 5;
     }
-    prepTime = 10;
-    cookTime = 5;
   }
 
   if (title.includes("Gratin")) {
@@ -1010,14 +1147,14 @@ const makeDay = (title: string, p: any, bfs: any) => ({
 // --- PROPOSITION 1 : CLASSIQUE / FAMILLE (Complet) ---
 const PLAN_V1 = [
   makeDay("Lundi", {
-    std: { l: makeRecipe("Poulet Rôti", "Haricots", 8.2, [{i:"Cuisse poulet",q:"2",c:"Viande"},{i:"Haricots",q:"300g",c:"Légumes"}]), d: makeRecipe("Pâtes Carbonara", "Lardons", 7.8, [{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Lardons",q:"100g",c:"Viande"}]) },
-    veg: { l: makeRecipe("Curry Légumes", "Riz", 6.5, [{i:"Légumes",q:"400g",c:"Légumes"},{i:"Lait coco",q:"200ml",c:"Epicerie"}]), d: makeRecipe("Pâtes Champignons", "Crème", 6.0, [{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Champignons",q:"200g",c:"Légumes"}]) },
-    vgn: { l: makeRecipe("Dahl Lentilles", "Corail", 5.0, [{i:"Lentilles",q:"200g",c:"Epicerie"},{i:"Tomates",q:"300g",c:"Légumes"}]), d: makeRecipe("Wok Tofu", "Brocolis", 7.0, [{i:"Tofu",q:"200g",c:"Frais"},{i:"Brocolis",q:"300g",c:"Légumes"}]) }
+    std: { l: makeRecipe("Poulet Rôti", "Haricots", 8.2, [{i:"Cuisse poulet",q:"2",c:"Viande"},{i:"Haricots",q:"300g",c:"Légumes"},{i:"Huile d'olive",q:"2cs",c:"Epicerie"},{i:"Herbes Provence",q:"1cs",c:"Epicerie"}]), d: makeRecipe("Pâtes Carbonara", "Lardons", 7.8, [{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Lardons",q:"100g",c:"Viande"},{i:"Oeufs",q:"2",c:"Crèmerie"},{i:"Parmesan",q:"50g",c:"Crèmerie"}]) },
+    veg: { l: makeRecipe("Curry Légumes", "Riz", 6.5, [{i:"Légumes",q:"400g",c:"Légumes"},{i:"Lait coco",q:"200ml",c:"Epicerie"},{i:"Curry",q:"1cs",c:"Epicerie"},{i:"Riz",q:"150g",c:"Epicerie"}]), d: makeRecipe("Pâtes Champignons", "Crème", 6.0, [{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Champignons",q:"200g",c:"Légumes"},{i:"Crème",q:"200ml",c:"Crèmerie"},{i:"Ail",q:"1",c:"Légumes"},{i:"Persil",q:"1b",c:"Frais"}]) },
+    vgn: { l: makeRecipe("Dahl Lentilles", "Corail", 5.0, [{i:"Lentilles",q:"200g",c:"Epicerie"},{i:"Tomates",q:"300g",c:"Légumes"},{i:"Lait coco",q:"100ml",c:"Epicerie"}]), d: makeRecipe("Wok Tofu", "Brocolis", 7.0, [{i:"Tofu",q:"200g",c:"Frais"},{i:"Brocolis",q:"300g",c:"Légumes"},{i:"Sauce soja",q:"5cl",c:"Epicerie"}]) }
   }, BF_V1_OPTS[0]),
   makeDay("Mardi", {
-    std: { l: makeRecipe("Pavé Saumon", "Riz", 14.5, [{i:"Saumon",q:"2",c:"Poisson"},{i:"Riz",q:"150g",c:"Epicerie"}]), d: makeRecipe("Hachis Parmentier", "Boeuf", 8.5, [{i:"Boeuf haché",q:"300g",c:"Viande"},{i:"Pommes terre",q:"500g",c:"Légumes"}]), },
-    veg: { l: makeRecipe("Omelette Feta", "Epinards", 7.0, [{i:"Oeufs",q:"4",c:"Crèmerie"},{i:"Feta",q:"100g",c:"Crèmerie"}]), d: makeRecipe("Chili Végé", "Haricots", 6.0, [{i:"Haricots r.",q:"400g",c:"Conserve"},{i:"Maïs",q:"150g",c:"Conserve"}]) },
-    vgn: { l: makeRecipe("Steak Soja", "Quinoa", 7.5, [{i:"Steak soja",q:"2",c:"Frais"},{i:"Quinoa",q:"150g",c:"Epicerie"}]), d: makeRecipe("Chili Sin Carne", "Riz", 5.5, [{i:"Haricots r.",q:"400g",c:"Conserve"},{i:"Riz",q:"150g",c:"Epicerie"}]) }
+    std: { l: makeRecipe("Pavé Saumon", "Riz", 14.5, [{i:"Saumon",q:"2",c:"Poisson"},{i:"Riz",q:"150g",c:"Epicerie"},{i:"Citron",q:"1",c:"Fruits"}]), d: makeRecipe("Hachis Parmentier", "Boeuf", 8.5, [{i:"Boeuf haché",q:"300g",c:"Viande"},{i:"Pommes terre",q:"500g",c:"Légumes"},{i:"Lait",q:"10cl",c:"Crèmerie"},{i:"Beurre",q:"30g",c:"Crèmerie"}]), },
+    veg: { l: makeRecipe("Omelette Feta", "Epinards", 7.0, [{i:"Oeufs",q:"4",c:"Crèmerie"},{i:"Feta",q:"100g",c:"Crèmerie"},{i:"Persil",q:"1b",c:"Frais"}]), d: makeRecipe("Chili Végé", "Haricots", 6.0, [{i:"Haricots r.",q:"400g",c:"Conserve"},{i:"Maïs",q:"150g",c:"Conserve"},{i:"Coulis tomate",q:"200g",c:"Epicerie"},{i:"Épices chili",q:"1cs",c:"Epicerie"}]), },
+    vgn: { l: makeRecipe("Steak Soja", "Quinoa", 7.5, [{i:"Steak soja",q:"2",c:"Frais"},{i:"Quinoa",q:"150g",c:"Epicerie"}]), d: makeRecipe("Chili Sin Carne", "Riz", 5.5, [{i:"Haricots r.",q:"400g",c:"Conserve"},{i:"Riz",q:"150g",c:"Epicerie"},{i:"Coulis tomate",q:"200g",c:"Epicerie"}]), }
   }, BF_V1_OPTS[1]),
   makeDay("Mercredi", { 
     std: {l:makeRecipe("Steak Frites","Salade",12,[{i:"Steak",q:"2",c:"Viande"},{i:"Frites",q:"300g",c:"Surgelés"},{i:"Salade",q:"1",c:"Légumes"}]), d:makeRecipe("Salade César","Poulet",9,[{i:"Poulet",q:"200g",c:"Viande"},{i:"Salade romaine",q:"1",c:"Légumes"},{i:"Croûtons",q:"50g",c:"Epicerie"},{i:"Parmesan",q:"30g",c:"Crèmerie"}])}, 
@@ -1025,9 +1162,9 @@ const PLAN_V1 = [
     vgn: {l:makeRecipe("Burger Vegan","Salade",10,[{i:"Steak soja",q:"2",c:"Frais"},{i:"Pain burger",q:"2",c:"Boulangerie"},{i:"Salade",q:"1",c:"Légumes"}]), d:makeRecipe("Salade Quinoa","Avocat",8,[{i:"Quinoa",q:"150g",c:"Epicerie"},{i:"Avocat",q:"1",c:"Fruits"},{i:"Tomates",q:"2",c:"Légumes"}])} 
   }, BF_V1_OPTS[2]),
   makeDay("Jeudi", { 
-    std: {l:makeRecipe("Pâtes Bolo","Boeuf",8,[{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Boeuf haché",q:"200g",c:"Viande"},{i:"Sauce tomate",q:"300g",c:"Epicerie"}]), d:makeRecipe("Croque Monsieur","Jambon",6,[{i:"Pain de mie",q:"4tr",c:"Boulangerie"},{i:"Jambon",q:"2tr",c:"Viande"},{i:"Fromage",q:"50g",c:"Crèmerie"}])}, 
-    veg: {l:makeRecipe("Pâtes Pesto","Mozza",7,[{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Pesto",q:"100g",c:"Epicerie"},{i:"Mozzarella",q:"1",c:"Crèmerie"}]), d:makeRecipe("Croque Végé","Tomate",6,[{i:"Pain de mie",q:"4tr",c:"Boulangerie"},{i:"Tomate",q:"1",c:"Légumes"},{i:"Fromage",q:"50g",c:"Crèmerie"}])}, 
-    vgn: {l:makeRecipe("Pâtes Bolo Soja","Protéines",7,[{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Protéines soja",q:"100g",c:"Epicerie"},{i:"Sauce tomate",q:"300g",c:"Epicerie"}]), d:makeRecipe("Tartines Houmous","Légumes",6,[{i:"Pain",q:"4tr",c:"Boulangerie"},{i:"Houmous",q:"100g",c:"Frais"},{i:"Concombre",q:"1",c:"Légumes"}])} 
+    std: {l:makeRecipe("Pâtes Bolo","Boeuf",8,[{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Boeuf haché",q:"200g",c:"Viande"},{i:"Sauce tomate",q:"300g",c:"Epicerie"},{i:"Oignon",q:"1",c:"Légumes"}]), d:makeRecipe("Croque Monsieur","Jambon",6,[{i:"Pain de mie",q:"4tr",c:"Boulangerie"},{i:"Jambon",q:"2tr",c:"Viande"},{i:"Fromage",q:"50g",c:"Crèmerie"}]), }, 
+    veg: {l:makeRecipe("Pâtes Pesto","Mozza",7,[{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Pesto",q:"100g",c:"Epicerie"},{i:"Mozzarella",q:"1",c:"Crèmerie"}]), d:makeRecipe("Croque Végé","Tomate",6,[{i:"Pain de mie",q:"4tr",c:"Boulangerie"},{i:"Tomate",q:"1",c:"Légumes"},{i:"Fromage",q:"50g",c:"Crèmerie"}]), }, 
+    vgn: {l:makeRecipe("Pâtes Bolo Soja","Protéines",7,[{i:"Pâtes",q:"250g",c:"Epicerie"},{i:"Protéines soja",q:"100g",c:"Epicerie"},{i:"Sauce tomate",q:"300g",c:"Epicerie"},{i:"Oignon",q:"1",c:"Légumes"}]), d:makeRecipe("Tartines Houmous","Légumes",6,[{i:"Pain",q:"4tr",c:"Boulangerie"},{i:"Houmous",q:"100g",c:"Frais"},{i:"Concombre",q:"1",c:"Légumes"}]), } 
   }, BF_V1_OPTS[3]),
   makeDay("Vendredi", { 
     std: {l:makeRecipe("Filet Perche","Meunière",15,[{i:"Filets perche",q:"300g",c:"Poisson"},{i:"Beurre",q:"50g",c:"Crèmerie"},{i:"Citron",q:"1",c:"Fruits"}]), d:makeRecipe("Pizza Reine","Jambon",9,[{i:"Pâte pizza",q:"1",c:"Frais"},{i:"Jambon",q:"100g",c:"Viande"},{i:"Mozzarella",q:"1",c:"Crèmerie"},{i:"Champignons",q:"100g",c:"Légumes"}])}, 
@@ -1051,9 +1188,9 @@ const PLAN_V1 = [
 const PLAN_V2 = [
   // LUNDI
   makeDay("Lundi", {
-    std: { l: makeRecipe("Salade Grecque", "Feta", 8, [{i:"Feta",q:"200g",c:"Crèmerie"},{i:"Olives",q:"50g",c:"Epicerie"}]), d: makeRecipe("Carpaccio", "Boeuf", 12, [{i:"Carpaccio",q:"200g",c:"Viande"}]) },
-    veg: { l: makeRecipe("Salade Grecque", "Feta", 8, [{i:"Feta",q:"200g",c:"Crèmerie"},{i:"Concombre",q:"1",c:"Légumes"}]), d: makeRecipe("Bruschetta", "Tomate", 7, [{i:"Pain",q:"4tr",c:"Boulangerie"},{i:"Tomate",q:"4",c:"Légumes"}]) },
-    vgn: { l: makeRecipe("Salade Grecque Vegan", "Tofu", 8, [{i:"Tofu lactofermenté",q:"200g",c:"Frais"},{i:"Olives",q:"50g",c:"Epicerie"}]), d: makeRecipe("Bruschetta", "Ail", 6, [{i:"Pain",q:"4tr",c:"Boulangerie"},{i:"Ail",q:"1",c:"Légumes"}]) }
+    std: { l: makeRecipe("Salade Grecque", "Feta", 8, [{i:"Feta",q:"200g",c:"Crèmerie"},{i:"Olives",q:"50g",c:"Epicerie"},{i:"Tomates",q:"2",c:"Légumes"},{i:"Concombre",q:"1",c:"Légumes"},{i:"Huile d'olive",q:"5cl",c:"Epicerie"}]), d: makeRecipe("Carpaccio", "Boeuf", 12, [{i:"Carpaccio",q:"200g",c:"Viande"},{i:"Parmesan",q:"30g",c:"Crèmerie"},{i:"Huile d'olive",q:"2cs",c:"Epicerie"}]), },
+    veg: { l: makeRecipe("Salade Grecque", "Feta", 8, [{i:"Feta",q:"200g",c:"Crèmerie"},{i:"Concombre",q:"1",c:"Légumes"},{i:"Tomates",q:"2",c:"Légumes"},{i:"Huile d'olive",q:"5cl",c:"Epicerie"}]), d: makeRecipe("Bruschetta", "Tomate", 7, [{i:"Pain",q:"4tr",c:"Boulangerie"},{i:"Tomate",q:"4",c:"Légumes"},{i:"Ail",q:"1",c:"Légumes"},{i:"Basilic",q:"1b",c:"Frais"}]), },
+    vgn: { l: makeRecipe("Salade Grecque Vegan", "Tofu", 8, [{i:"Tofu lactofermenté",q:"200g",c:"Frais"},{i:"Olives",q:"50g",c:"Epicerie"},{i:"Tomates",q:"2",c:"Légumes"},{i:"Huile d'olive",q:"5cl",c:"Epicerie"}]), d: makeRecipe("Bruschetta", "Ail", 6, [{i:"Pain",q:"4tr",c:"Boulangerie"},{i:"Ail",q:"1",c:"Légumes"},{i:"Huile d'olive",q:"2cs",c:"Epicerie"}]), }
   }, BF_V2_OPTS[0]),
 
   // MARDI
@@ -1072,9 +1209,9 @@ const PLAN_V2 = [
 
   // JEUDI
   makeDay("Jeudi", { 
-    std: {l:makeRecipe("Risotto Asperges","Parmesan",10,[{i:"Riz Arborio",q:"200g",c:"Epicerie"},{i:"Asperges",q:"1botte",c:"Légumes"},{i:"Parmesan",q:"50g",c:"Crèmerie"},{i:"Vin blanc",q:"10cl",c:"Boissons"}]), d:makeRecipe("Salade Niçoise","Thon",9,[{i:"Salade",q:"1",c:"Légumes"},{i:"Thon",q:"1boite",c:"Conserve"},{i:"Oeufs",q:"2",c:"Crèmerie"},{i:"Olives",q:"50g",c:"Epicerie"}])}, 
-    veg: {l:makeRecipe("Risotto Vert","Petits pois",9,[{i:"Riz Arborio",q:"200g",c:"Epicerie"},{i:"Petits pois",q:"150g",c:"Surgelés"},{i:"Parmesan",q:"50g",c:"Crèmerie"}]), d:makeRecipe("Salade Niçoise Végé","Oeufs",8,[{i:"Salade",q:"1",c:"Légumes"},{i:"Oeufs",q:"3",c:"Crèmerie"},{i:"Haricots verts",q:"150g",c:"Légumes"},{i:"Olives",q:"50g",c:"Epicerie"}])}, 
-    vgn: {l:makeRecipe("Risotto Crémeux","Crème soja",9,[{i:"Riz Arborio",q:"200g",c:"Epicerie"},{i:"Champignons",q:"200g",c:"Légumes"},{i:"Crème soja",q:"10cl",c:"Epicerie"}]), d:makeRecipe("Salade Composée","Pois chiches",7,[{i:"Salade",q:"1",c:"Légumes"},{i:"Pois chiches",q:"200g",c:"Conserve"},{i:"Mais",q:"100g",c:"Conserve"},{i:"Avocat",q:"1",c:"Fruits"}])} 
+    std: {l:makeRecipe("Risotto Asperges","Parmesan",10,[{i:"Riz Arborio",q:"200g",c:"Epicerie"},{i:"Asperges",q:"1botte",c:"Légumes"},{i:"Parmesan",q:"50g",c:"Crèmerie"},{i:"Vin blanc",q:"10cl",c:"Boissons"},{i:"Bouillon",q:"1l",c:"Epicerie"}]), d:makeRecipe("Salade Niçoise","Thon",9,[{i:"Salade",q:"1",c:"Légumes"},{i:"Thon",q:"1boite",c:"Conserve"},{i:"Oeufs",q:"2",c:"Crèmerie"},{i:"Olives",q:"50g",c:"Epicerie"},{i:"Haricots verts",q:"150g",c:"Légumes"}]), }, 
+    veg: {l:makeRecipe("Risotto Vert","Petits pois",9,[{i:"Riz Arborio",q:"200g",c:"Epicerie"},{i:"Petits pois",q:"150g",c:"Surgelés"},{i:"Parmesan",q:"50g",c:"Crèmerie"},{i:"Bouillon",q:"1l",c:"Epicerie"}]), d:makeRecipe("Salade Niçoise Végé","Oeufs",8,[{i:"Salade",q:"1",c:"Légumes"},{i:"Oeufs",q:"3",c:"Crèmerie"},{i:"Haricots verts",q:"150g",c:"Légumes"},{i:"Olives",q:"50g",c:"Epicerie"}]), }, 
+    vgn: {l:makeRecipe("Risotto Crémeux","Crème soja",9,[{i:"Riz Arborio",q:"200g",c:"Epicerie"},{i:"Champignons",q:"200g",c:"Légumes"},{i:"Crème soja",q:"10cl",c:"Epicerie"},{i:"Bouillon",q:"1l",c:"Epicerie"}]), d:makeRecipe("Salade Composée","Pois chiches",7,[{i:"Salade",q:"1",c:"Légumes"},{i:"Pois chiches",q:"200g",c:"Conserve"},{i:"Mais",q:"100g",c:"Conserve"},{i:"Avocat",q:"1",c:"Fruits"}]), } 
   }, BF_V2_OPTS[3]),
 
   // VENDREDI
